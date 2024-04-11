@@ -1,4 +1,4 @@
-# code-with-quarkus
+# Camycar Rentals Quarkus
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
