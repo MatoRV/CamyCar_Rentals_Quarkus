@@ -4,8 +4,8 @@ import base.dto.cliente.ClienteDtoRequest;
 import base.dto.cliente.ClienteDtoResponse;
 import base.service.BaseService;
 import camycar_rentals.domain.Cliente;
-import camycar_rentals.dto.converters.ConverterDTOtoJPA;
-import camycar_rentals.dto.converters.ConverterJPAtoDTO;
+import camycar_rentals.dto.converters.ConverterDtoToJpa;
+import camycar_rentals.dto.converters.ConverterJpaToDto;
 import camycar_rentals.repository.ClienteRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -17,21 +17,21 @@ import java.util.List;
 public class ClienteService extends BaseService<ClienteRepository, Cliente, Integer> {
 
     @Inject
-    ConverterJPAtoDTO converterJPAtoDTO;
+    ConverterJpaToDto converterJpaToDto;
 
     @Inject
-    ConverterDTOtoJPA converterDTOtoJPA;
+    ConverterDtoToJpa converterDtoToJpa;
 
     @Transactional
     public ClienteDtoResponse crear(ClienteDtoRequest clienteDtoRequest) {
 
-        Cliente cliente = converterDTOtoJPA.convertCliente(clienteDtoRequest);
+        Cliente cliente = converterDtoToJpa.convertCliente(clienteDtoRequest);
 
-        return converterJPAtoDTO.convertCliente(repository.create(cliente));
+        return converterJpaToDto.convertCliente(repository.create(cliente));
     }
 
     public List<ClienteDtoResponse> obtenerClientes() {
-        return converterJPAtoDTO.convertClienteList(findAll());
+        return converterJpaToDto.convertClienteList(findAll());
     }
 
     @Transactional
@@ -39,9 +39,9 @@ public class ClienteService extends BaseService<ClienteRepository, Cliente, Inte
 
         Cliente clienteData = find(idCliente);
 
-        Cliente clienteEdit = converterDTOtoJPA.convertCliente(clienteData, clienteDtoRequest);
+        Cliente clienteEdit = converterDtoToJpa.convertCliente(clienteData, clienteDtoRequest);
 
-        return converterJPAtoDTO.convertCliente(edit(clienteEdit));
+        return converterJpaToDto.convertCliente(edit(clienteEdit));
     }
 
     @Transactional
@@ -49,6 +49,6 @@ public class ClienteService extends BaseService<ClienteRepository, Cliente, Inte
 
         Cliente cliente = find(idCliente);
 
-        return converterJPAtoDTO.convertCliente(remove(cliente));
+        return converterJpaToDto.convertCliente(remove(cliente));
     }
 }

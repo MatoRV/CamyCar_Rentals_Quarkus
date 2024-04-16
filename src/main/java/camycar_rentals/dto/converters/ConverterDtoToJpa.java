@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "cdi")
-public interface ConverterDTOtoJPA {
+public interface ConverterDtoToJpa {
 
     Cliente convertCliente(ClienteDtoRequest clienteDtoRequest);
 

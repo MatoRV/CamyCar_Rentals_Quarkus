@@ -58,11 +58,15 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5-mockito</artifactId>
-            <scope>test</scope>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
 
         <!-- MapStruct, Lombook e integración entre ellos-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
@@ -73,13 +77,13 @@
             <artifactId>lombok</artifactId>
             <version>${org.projectlombok.version}</version>
         </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok-mapstruct-binding</artifactId>
             <version>${lombok-mapstruct-binding.version}</version>
         </dependency>
-
-        <!-- Test -->
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.agent</artifactId>
@@ -95,7 +99,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>

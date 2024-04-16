@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "cdi")
-public interface ConverterJPAtoDTO {
+public interface ConverterJpaToDto {
 
     ClienteDtoResponse convertCliente(Cliente cliente);
 
