@@ -1,5 +1,6 @@
 package camycar_rentals.service;
 
+import base.constant.errores.ErroresGeneral;
 import base.dto.cliente.ClienteDtoRequest;
 import base.dto.cliente.ClienteDtoResponse;
 import base.service.BaseService;
@@ -7,6 +8,7 @@ import camycar_rentals.domain.Cliente;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
 import camycar_rentals.repository.ClienteRepository;
+import io.quarkus.security.ForbiddenException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -26,6 +28,10 @@ public class ClienteService extends BaseService<ClienteRepository, Cliente, Inte
     public ClienteDtoResponse crear(ClienteDtoRequest clienteDtoRequest) {
 
         Cliente cliente = converterDtoToJpa.convertCliente(clienteDtoRequest);
+
+        if (repository.obtenerPorDni(cliente)) {
+            throw new ForbiddenException(ErroresGeneral.GEN_0002);
+        }
 
         return converterJpaToDto.convertCliente(repository.create(cliente));
     }

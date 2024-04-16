@@ -1,5 +1,6 @@
 package camycar_rentals.controller;
 
+import base.constant.errores.ErroresGeneral;
 import base.controller.BaseController;
 import base.dto.cliente.ClienteDtoRequest;
 import base.dto.cliente.ClienteDtoResponse;
@@ -35,8 +36,17 @@ public class ClienteController extends BaseController {
     @Operation(summary = "Crea un cliente")
     @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = ClienteDtoResponse.class)))
     @APIResponse(responseCode = "400", description = "BAD REQUEST")
+    @APIResponse(responseCode = "403", description = "FORBIDDEN\n - " + ErroresGeneral.GEN_0002)
     @APIResponse(responseCode = "404", description = "NOT FOUND")
     public Response crearCliente(ClienteDtoRequest clienteDtoRequest) {
-        return Response.status(Response.Status.OK).entity(clienteService.crear(clienteDtoRequest)).build();
+        return Response.status(Response.Status.CREATED).entity(clienteService.crear(clienteDtoRequest)).build();
+    }
+
+    @DELETE
+    @Path("/{idCliente}")
+    @Operation(summary = "Elimina un cliente")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = ClienteDtoResponse.class)))
+    public Response eliminarCliente(@PathParam("idCliente") Integer idCliente) {
+        return Response.status(Response.Status.OK).entity(clienteService.eliminar(idCliente)).build();
     }
 }

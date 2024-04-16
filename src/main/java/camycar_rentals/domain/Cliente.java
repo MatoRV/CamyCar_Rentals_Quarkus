@@ -14,6 +14,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedQuery(name = "Cliente.obtenerPorDni", query = "SELECT c FROM Cliente c WHERE c.dniCliente = :dniCliente")
 public class Cliente {
 
     @Id
