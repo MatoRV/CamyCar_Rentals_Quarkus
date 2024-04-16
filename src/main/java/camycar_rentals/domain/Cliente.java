@@ -25,7 +25,7 @@ public class Cliente {
     private String nombre;
 
     @Column(name = "usuario_cliente", nullable = false, unique = true)
-    private String usuarioCliente;
+    private String nombreUsuario;
 
     @Column(name = "contrasena", nullable = false)
     private String contrasena;
@@ -38,11 +38,11 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(idCliente, cliente.idCliente) && Objects.equals(nombre, cliente.nombre) && Objects.equals(usuarioCliente, cliente.usuarioCliente) && Objects.equals(contrasena, cliente.contrasena) && Objects.equals(dniCliente, cliente.dniCliente);
+        return Objects.equals(idCliente, cliente.idCliente) && Objects.equals(nombre, cliente.nombre) && Objects.equals(nombreUsuario, cliente.nombreUsuario) && Objects.equals(contrasena, cliente.contrasena) && Objects.equals(dniCliente, cliente.dniCliente);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCliente, nombre, usuarioCliente, contrasena, dniCliente);
+        return Objects.hash(idCliente, nombre, nombreUsuario, contrasena, dniCliente);
     }
 }

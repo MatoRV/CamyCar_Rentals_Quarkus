@@ -20,5 +20,5 @@ public class ClienteDtoRequest {
     private String contrasena;
 
     @NotNull
-    private String DNICliente;
+    private String dniCliente;
 }

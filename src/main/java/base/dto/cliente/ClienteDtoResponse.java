@@ -13,7 +13,7 @@ public class ClienteDtoResponse {
 
     private String nombre;
 
-    private String nombre_usuario;
+    private String nombreUsuario;
 
-    private String DNICliente;
+    private String dniCliente;
 }
