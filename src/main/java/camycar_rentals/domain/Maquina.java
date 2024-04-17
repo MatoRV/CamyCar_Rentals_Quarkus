@@ -37,7 +37,7 @@ public class Maquina {
     @Column(name = "capacidad_carga")
     private Integer capacidadCarga;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_tipo_maquina", referencedColumnName = "id_tipo_maquina")
     private TipoMaquina tipoMaquina;
 }
