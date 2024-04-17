@@ -73,7 +73,16 @@ public class MaquinaController extends BaseController {
     @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
     @APIResponse(responseCode = "400", description = "BAD REQUEST")
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response eliminarMaquinaPorId(@PathParam("idMaquina")Integer idMaquina) {
+    public Response eliminarMaquinaPorId(@PathParam("idMaquina") Integer idMaquina) {
         return Response.status(Response.Status.OK).entity(maquinaService.eliminarMaquinaPorId(idMaquina)).build();
+    }
+
+    @GET
+    @Path("/{idTipoMaquina}")
+    @Operation(summary = "Obtiene una lista de maquinas según el tipo")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response obtenerMaquinasPorTipoMaquina(@PathParam("idTipoMaquina") Integer idTipoMaquina) {
+        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorTipoMaquina(idTipoMaquina)).build();
     }
 }
