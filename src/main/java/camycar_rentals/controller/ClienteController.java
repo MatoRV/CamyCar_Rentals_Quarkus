@@ -49,4 +49,14 @@ public class ClienteController extends BaseController {
     public Response eliminarCliente(@PathParam("idCliente") Integer idCliente) {
         return Response.status(Response.Status.OK).entity(clienteService.eliminar(idCliente)).build();
     }
+
+    @PUT
+    @Path("/{idCliente}")
+    @Operation(summary = "Edita un cliente")
+    @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = ClienteDtoResponse.class)))
+    @APIResponse(responseCode = "400", description = "BAD REQUEST")
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response editarCliente(@PathParam("idCliente")Integer idCliente, ClienteDtoRequest clienteDtoRequest) {
+        return Response.status(Response.Status.CREATED).entity(clienteService.editar(idCliente, clienteDtoRequest)).build();
+    }
 }

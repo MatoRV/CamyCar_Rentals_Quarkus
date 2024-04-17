@@ -11,8 +11,10 @@ import camycar_rentals.service.MaquinaService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -53,5 +55,25 @@ public class MaquinaController extends BaseController {
     @APIResponse(responseCode = "404", description = "NOT FOUND")
     public Response crearMaquina(MaquinaDtoRequest maquinaDtoRequest) {
         return Response.status(Response.Status.CREATED).entity(maquinaService.crearMaquina(maquinaDtoRequest)).build();
+    }
+
+    @PUT
+    @Path("/{idMaquina}")
+    @Operation(summary = "Edita una maquina")
+    @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
+    @APIResponse(responseCode = "400", description = "BAD REQUEST")
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response editarMaquinaPorId(@PathParam("idMaquina")Integer idMaquina, MaquinaDtoRequest maquinaDtoRequest) {
+        return Response.status(Response.Status.CREATED).entity(maquinaService.editarMaquinaPorId(idMaquina, maquinaDtoRequest)).build();
+    }
+
+    @DELETE
+    @Path("/{idMaquina}")
+    @Operation(summary = "Elimina una maquina")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
+    @APIResponse(responseCode = "400", description = "BAD REQUEST")
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response eliminarMaquinaPorId(@PathParam("idMaquina")Integer idMaquina) {
+        return Response.status(Response.Status.OK).entity(maquinaService.eliminarMaquinaPorId(idMaquina)).build();
     }
 }

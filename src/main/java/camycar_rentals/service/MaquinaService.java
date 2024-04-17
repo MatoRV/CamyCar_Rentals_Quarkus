@@ -46,4 +46,19 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         Maquina maquina = find(idMaquina);
         return converterJpaToDto.convertMaquinaDtoResponse(maquina);
     }
+
+    @Transactional
+    public MaquinaDtoResponse editarMaquinaPorId(Integer idMaquina, MaquinaDtoRequest maquinaDtoRequest) {
+        TipoMaquina tipoMaquina = tipoMaquinaRepository.find(maquinaDtoRequest.getIdTipoMaquina());
+        Maquina maquinaData = find(idMaquina);
+        Maquina maquinaEdit = converterDtoToJpa.convertMaquina(maquinaData, maquinaDtoRequest);
+        maquinaEdit.setTipoMaquina(tipoMaquina);
+        return converterJpaToDto.convertMaquinaDtoResponse(edit(maquinaEdit));
+    }
+
+    @Transactional
+    public MaquinaDtoResponse eliminarMaquinaPorId(Integer idMaquina) {
+        Maquina maquina = find(idMaquina);
+        return converterJpaToDto.convertMaquinaDtoResponse(remove(maquina));
+    }
 }

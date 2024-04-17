@@ -19,9 +19,13 @@ public interface ConverterDtoToJpa {
 
     TipoMaquina convertTipoMaquina(TipoMaquinaDtoRequest tipoMaquinaDtoRequest);
 
+    TipoMaquina convertTipoMaquina(@MappingTarget TipoMaquina tipoMaquina, TipoMaquinaDtoRequest tipoMaquinaDtoRequest);
+
     List<TipoMaquina> converTipoMaquinaList(List<TipoMaquinaDtoRequest> tipoMaquinaDtoRequestList);
 
     Maquina convertMaquina(MaquinaDtoRequest maquinaDtoRequest);
+
+    Maquina convertMaquina(@MappingTarget Maquina maquina, MaquinaDtoRequest maquinaDtoRequest);
 
     List<Maquina> convertMaquinaList(List<MaquinaDtoRequest> maquinaDtoRequestList);
 }
