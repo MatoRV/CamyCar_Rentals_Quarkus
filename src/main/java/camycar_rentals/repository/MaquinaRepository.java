@@ -29,4 +29,10 @@ public class MaquinaRepository extends AbstractRepository<Maquina, Integer> {
         query.setParameter("tipoMaquina", tipoMaquina);
         return query.getResultList();
     }
+
+    public List<Maquina> obtenerMaquinasPorCapacidadCarga(Integer capacidadCarga) {
+        Query query = em.createNamedQuery("Maquina.obtenerMaquinaPorCapacidadCarga", Maquina.class);
+        query.setParameter("capacidadCarga", capacidadCarga);
+        return query.getResultList();
+    }
 }

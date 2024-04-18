@@ -18,6 +18,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -78,11 +79,20 @@ public class MaquinaController extends BaseController {
     }
 
     @GET
-    @Path("/{idTipoMaquina}")
+    @Path("/tipo-maquina/{idTipoMaquina}")
     @Operation(summary = "Obtiene una lista de maquinas según el tipo")
     @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
     @APIResponse(responseCode = "404", description = "NOT FOUND")
     public Response obtenerMaquinasPorTipoMaquina(@PathParam("idTipoMaquina") Integer idTipoMaquina) {
         return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorTipoMaquina(idTipoMaquina)).build();
+    }
+
+    @GET
+    @Path("/capacidad-carga")
+    @Operation(summary = "Obtiene una lista de máquinas según la capacidad de carga")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response obtenerMaquinasPorCapacidadCarga(@QueryParam("capacidadCarga") Integer capacidadCarga) {
+        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorCapacidadCarga(capacidadCarga)).build();
     }
 }
