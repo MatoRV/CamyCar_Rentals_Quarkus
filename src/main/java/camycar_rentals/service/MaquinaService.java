@@ -7,6 +7,7 @@ import base.dto.maquina.MaquinaDtoResponse;
 import base.service.BaseService;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
 import camycar_rentals.repository.MaquinaRepository;
@@ -75,6 +76,11 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
 
     public List<MaquinaDtoResponse> obtenerMaquinasPorFabricante(String fabricante) {
         List<Maquina> maquinas = repository.obtenerMaquinasPorFabricante(fabricante);
+        return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
+    }
+
+    public List<MaquinaDtoResponse> obtenerMaquinasPorEstado(EstadoEnum estadoEnum) {
+        List<Maquina> maquinas = repository.obtenerMaquinasPorEstado(estadoEnum);
         return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
     }
 }

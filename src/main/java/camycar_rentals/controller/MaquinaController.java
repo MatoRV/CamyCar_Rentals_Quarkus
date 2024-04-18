@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import base.controller.BaseController;
 import base.dto.maquina.MaquinaDtoRequest;
 import base.dto.maquina.MaquinaDtoResponse;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.service.MaquinaService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -103,5 +104,14 @@ public class MaquinaController extends BaseController {
     @APIResponse(responseCode = "404", description = "NOT FOUND")
     public Response obtenerMaquinasPorFabricante(@QueryParam("fabricante") String fabricante) {
         return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorFabricante(fabricante)).build();
+    }
+
+    @GET
+    @Path("/estado")
+    @Operation(summary = "Obtiene una lista de máquinas según el estado")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response obtenerMaquinasPorEstado(@QueryParam("estado") EstadoEnum estadoEnum) {
+        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorEstado(estadoEnum)).build();
     }
 }

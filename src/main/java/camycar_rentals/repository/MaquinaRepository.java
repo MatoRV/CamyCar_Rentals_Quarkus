@@ -5,6 +5,7 @@ import base.repository.AbstractRepository;
 import base.util.Casts;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -40,6 +41,12 @@ public class MaquinaRepository extends AbstractRepository<Maquina, Integer> {
     public List<Maquina> obtenerMaquinasPorFabricante(String fabricante) {
         Query query = em.createNamedQuery("Maquina.obtenerMaquinaPorFabricante", Maquina.class);
         query.setParameter("fabricante", fabricante);
+        return Casts.castList(query.getResultList(), Maquina.class);
+    }
+
+    public List<Maquina> obtenerMaquinasPorEstado(EstadoEnum estadoEnum) {
+        Query query = em.createNamedQuery("Maquina.obtenerMaquinaPorEstado", Maquina.class);
+        query.setParameter("estado", estadoEnum);
         return Casts.castList(query.getResultList(), Maquina.class);
     }
 }
