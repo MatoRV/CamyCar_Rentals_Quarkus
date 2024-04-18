@@ -3,7 +3,6 @@ package camycar_rentals.service.maquinaService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import base.dto.maquina.MaquinaDtoResponse;
-import base.dto.tipomaquina.TipoMaquinaDtoResponse;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
 import camycar_rentals.repository.MaquinaRepository;
@@ -28,9 +27,8 @@ public class ObtenerMaquinaPorCapacidadCargaServiceTest {
     void obtenerMaquinaPorCapacidadCargaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina1 = new Maquina(1,"F1","M1",1500,tipoMaquina);
-        TipoMaquinaDtoResponse tipoMaquinaDtoResponse = new TipoMaquinaDtoResponse(1,"Torito");
-        MaquinaDtoResponse maquinaDtoResponse1 = new MaquinaDtoResponse(1,"F1","M1",1500,tipoMaquinaDtoResponse);
+        Maquina maquina1 = new Maquina(1, "F1", "M1", 1500, tipoMaquina);
+        MaquinaDtoResponse maquinaDtoResponse1 = new MaquinaDtoResponse(1, "F1", "M1", 1500, "Torito");
         Mockito.when(maquinaRepository.obtenerMaquinasPorCapacidadCarga(1500)).thenReturn(List.of(maquina1));
         Mockito.when(maquinaService.obtenerMaquinasPorCapacidadCarga(1500)).thenReturn(List.of(maquinaDtoResponse1));
 

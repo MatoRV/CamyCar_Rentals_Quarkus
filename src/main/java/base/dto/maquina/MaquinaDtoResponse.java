@@ -1,6 +1,5 @@
 package base.dto.maquina;
 
-import base.dto.tipomaquina.TipoMaquinaDtoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +17,5 @@ public class MaquinaDtoResponse {
 
     private Integer capacidadCarga;
 
-    private TipoMaquinaDtoResponse tipoMaquina;
+    private String tipoMaquina;
 }

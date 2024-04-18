@@ -3,7 +3,6 @@ package camycar_rentals.service.maquinaService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import base.dto.maquina.MaquinaDtoRequest;
 import base.dto.maquina.MaquinaDtoResponse;
-import base.dto.tipomaquina.TipoMaquinaDtoResponse;
 import camycar_rentals.domain.TipoMaquina;
 import camycar_rentals.repository.TipoMaquinaRepository;
 import camycar_rentals.service.MaquinaService;
@@ -27,9 +26,8 @@ public class CrearMaquinaServiceTest {
     void crearMaquinaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        TipoMaquinaDtoResponse tipoMaquinaDtoResponse = new TipoMaquinaDtoResponse(1, "Torito");
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, tipoMaquinaDtoResponse);
-        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1","M1",1500, 1);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, "Torito");
+        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M1", 1500, 1);
         Mockito.when(tipoMaquinaRepository.find(1)).thenReturn(tipoMaquina);
         Mockito.when(maquinaService.crearMaquina(maquinaDtoRequest)).thenReturn(maquinaDtoResponse);
 

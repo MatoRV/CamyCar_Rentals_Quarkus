@@ -1,5 +1,6 @@
 package camycar_rentals.dto.converters;
 
+import java.util.List;
 import base.dto.cliente.ClienteDtoResponse;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.tipomaquina.TipoMaquinaDtoResponse;
@@ -7,8 +8,7 @@ import camycar_rentals.domain.Cliente;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
 import org.mapstruct.Mapper;
-
-import java.util.List;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "cdi")
 public interface ConverterJpaToDto {
@@ -21,6 +21,7 @@ public interface ConverterJpaToDto {
 
     List<TipoMaquinaDtoResponse> convertTipoMaquinaDtoResponseList(List<TipoMaquina> tipoMaquinas);
 
+    @Mapping(source = "maquina.tipoMaquina.nombre", target = "tipoMaquina")
     MaquinaDtoResponse convertMaquinaDtoResponse(Maquina maquina);
 
     List<MaquinaDtoResponse> convertMaquinaDtoResponseList(List<Maquina> maquinas);
