@@ -95,4 +95,13 @@ public class MaquinaController extends BaseController {
     public Response obtenerMaquinasPorCapacidadCarga(@QueryParam("capacidadCarga") Integer capacidadCarga) {
         return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorCapacidadCarga(capacidadCarga)).build();
     }
+
+    @GET
+    @Path("/fabricante")
+    @Operation(summary = "Obtiene una lista de máquinas según el fabricante")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
+    public Response obtenerMaquinasPorFabricante(@QueryParam("fabricante") String fabricante) {
+        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorFabricante(fabricante)).build();
+    }
 }

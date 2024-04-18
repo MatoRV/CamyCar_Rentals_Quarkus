@@ -2,6 +2,7 @@ package camycar_rentals.repository;
 
 import java.util.List;
 import base.repository.AbstractRepository;
+import base.util.Casts;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -27,12 +28,18 @@ public class MaquinaRepository extends AbstractRepository<Maquina, Integer> {
     public List<Maquina> obtenerMaquinasPorTipoMaquina(TipoMaquina tipoMaquina) {
         Query query = em.createNamedQuery("Maquina.obtenerMaquinaPorTipoMaquina", Maquina.class);
         query.setParameter("tipoMaquina", tipoMaquina);
-        return query.getResultList();
+        return Casts.castList(query.getResultList(), Maquina.class);
     }
 
     public List<Maquina> obtenerMaquinasPorCapacidadCarga(Integer capacidadCarga) {
         Query query = em.createNamedQuery("Maquina.obtenerMaquinaPorCapacidadCarga", Maquina.class);
         query.setParameter("capacidadCarga", capacidadCarga);
-        return query.getResultList();
+        return Casts.castList(query.getResultList(), Maquina.class);
+    }
+
+    public List<Maquina> obtenerMaquinasPorFabricante(String fabricante) {
+        Query query = em.createNamedQuery("Maquina.obtenerMaquinaPorFabricante", Maquina.class);
+        query.setParameter("fabricante", fabricante);
+        return Casts.castList(query.getResultList(), Maquina.class);
     }
 }

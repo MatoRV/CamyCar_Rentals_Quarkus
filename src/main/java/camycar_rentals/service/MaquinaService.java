@@ -72,4 +72,9 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         List<Maquina> maquinas = repository.obtenerMaquinasPorCapacidadCarga(capacidadCarga);
         return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
     }
+
+    public List<MaquinaDtoResponse> obtenerMaquinasPorFabricante(String fabricante) {
+        List<Maquina> maquinas = repository.obtenerMaquinasPorFabricante(fabricante);
+        return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
+    }
 }
