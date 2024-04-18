@@ -27,14 +27,17 @@ public class ObtenerMaquinaPorEstadoServiceTest {
     @DisplayName("Prueba para obtener maquinas según estado")
     void obtenerMaquinaPorEstadoDisponible() {
         // Given
-        TipoMaquina tipoMaquina = new TipoMaquina(1,"Torito");
-        Maquina maquina = new Maquina(1,"F1","M1",1500, EstadoEnum.DISPONIBLE,tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1,"F1","M1",1500, EstadoEnum.DISPONIBLE,"Torito");
-        Mockito.when(maquinaRepository.obtenerMaquinasPorEstado(EstadoEnum.DISPONIBLE)).thenReturn(List.of(maquina));
-        Mockito.when(maquinaService.obtenerMaquinasPorEstado(EstadoEnum.DISPONIBLE)).thenReturn(List.of(maquinaDtoResponse));
+        TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
+        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
+        Mockito.when(maquinaRepository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(null, null, null, EstadoEnum.DISPONIBLE))
+                .thenReturn(List.of(maquina));
+        Mockito.when(maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(null, null, null, EstadoEnum.DISPONIBLE))
+                .thenReturn(List.of(maquinaDtoResponse));
 
         // When
-        List<MaquinaDtoResponse> maquinaDtoResponseDevuelto = maquinaService.obtenerMaquinasPorEstado(EstadoEnum.DISPONIBLE);
+        List<MaquinaDtoResponse> maquinaDtoResponseDevuelto =
+                maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(null, null, null, EstadoEnum.DISPONIBLE);
 
         // Then
         assertEquals(List.of(maquinaDtoResponse), maquinaDtoResponseDevuelto);

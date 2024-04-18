@@ -63,24 +63,12 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         return converterJpaToDto.convertMaquinaDtoResponse(remove(maquina));
     }
 
-    public List<MaquinaDtoResponse> obtenerMaquinasPorTipoMaquina(Integer idTipoMaquina) {
-        TipoMaquina tipoMaquina = tipoMaquinaRepository.find(idTipoMaquina);
-        List<Maquina> maquinas = repository.obtenerMaquinasPorTipoMaquina(tipoMaquina);
-        return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
-    }
-
-    public List<MaquinaDtoResponse> obtenerMaquinasPorCapacidadCarga(Integer capacidadCarga) {
-        List<Maquina> maquinas = repository.obtenerMaquinasPorCapacidadCarga(capacidadCarga);
-        return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
-    }
-
-    public List<MaquinaDtoResponse> obtenerMaquinasPorFabricante(String fabricante) {
-        List<Maquina> maquinas = repository.obtenerMaquinasPorFabricante(fabricante);
-        return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
-    }
-
-    public List<MaquinaDtoResponse> obtenerMaquinasPorEstado(EstadoEnum estadoEnum) {
-        List<Maquina> maquinas = repository.obtenerMaquinasPorEstado(estadoEnum);
-        return converterJpaToDto.convertMaquinaDtoResponseList(maquinas);
+    public List<MaquinaDtoResponse> obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(Integer tipoMaquina, Integer capacidadCarga,
+            String fabricante, EstadoEnum estadoEnum) {
+        if (tipoMaquina != null) {
+            tipoMaquinaRepository.find(tipoMaquina);
+        }
+        return converterJpaToDto.convertMaquinaDtoResponseList(
+                repository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(tipoMaquina, capacidadCarga, fabricante, estadoEnum));
     }
 }

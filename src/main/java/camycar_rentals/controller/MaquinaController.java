@@ -49,7 +49,6 @@ public class MaquinaController extends BaseController {
         return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinaPorId(idMaquina)).build();
     }
 
-
     @POST
     @Operation(summary = "Crea una maquina")
     @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
@@ -65,7 +64,7 @@ public class MaquinaController extends BaseController {
     @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
     @APIResponse(responseCode = "400", description = "BAD REQUEST")
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response editarMaquinaPorId(@PathParam("idMaquina")Integer idMaquina, MaquinaDtoRequest maquinaDtoRequest) {
+    public Response editarMaquinaPorId(@PathParam("idMaquina") Integer idMaquina, MaquinaDtoRequest maquinaDtoRequest) {
         return Response.status(Response.Status.CREATED).entity(maquinaService.editarMaquinaPorId(idMaquina, maquinaDtoRequest)).build();
     }
 
@@ -80,38 +79,13 @@ public class MaquinaController extends BaseController {
     }
 
     @GET
-    @Path("/tipo-maquina/{idTipoMaquina}")
-    @Operation(summary = "Obtiene una lista de maquinas según el tipo")
+    @Path("/filtro")
+    @Operation(summary = "Obtiene una lista de máquinas con un filtro")
     @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response obtenerMaquinasPorTipoMaquina(@PathParam("idTipoMaquina") Integer idTipoMaquina) {
-        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorTipoMaquina(idTipoMaquina)).build();
-    }
-
-    @GET
-    @Path("/capacidad-carga")
-    @Operation(summary = "Obtiene una lista de máquinas según la capacidad de carga")
-    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
-    @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response obtenerMaquinasPorCapacidadCarga(@QueryParam("capacidadCarga") Integer capacidadCarga) {
-        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorCapacidadCarga(capacidadCarga)).build();
-    }
-
-    @GET
-    @Path("/fabricante")
-    @Operation(summary = "Obtiene una lista de máquinas según el fabricante")
-    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
-    @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response obtenerMaquinasPorFabricante(@QueryParam("fabricante") String fabricante) {
-        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorFabricante(fabricante)).build();
-    }
-
-    @GET
-    @Path("/estado")
-    @Operation(summary = "Obtiene una lista de máquinas según el estado")
-    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = MaquinaDtoResponse.class)))
-    @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response obtenerMaquinasPorEstado(@QueryParam("estado") EstadoEnum estadoEnum) {
-        return Response.status(Response.Status.OK).entity(maquinaService.obtenerMaquinasPorEstado(estadoEnum)).build();
+    public Response obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(@QueryParam("tipoMaquina") Integer tipoMaquina,
+            @QueryParam("capacidadCarga") Integer capacidadCarga, @QueryParam("fabricante") String fabricante, @QueryParam("estado") EstadoEnum estado) {
+        return Response.status(Response.Status.OK)
+                .entity(maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(tipoMaquina, capacidadCarga, fabricante, estado)).build();
     }
 }

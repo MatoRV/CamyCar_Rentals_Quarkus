@@ -22,10 +22,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Maquina.obtenerMaquinaPorTipoMaquina", query = "SELECT m FROM Maquina m WHERE m.tipoMaquina = :tipoMaquina")
-@NamedQuery(name = "Maquina.obtenerMaquinaPorCapacidadCarga", query = "SELECT m FROM Maquina m WHERE m.capacidadCarga = :capacidadCarga")
-@NamedQuery(name = "Maquina.obtenerMaquinaPorFabricante", query = "SELECT m FROM Maquina m WHERE m.fabricante = :fabricante")
-@NamedQuery(name = "Maquina.obtenerMaquinaPorEstado", query = "SELECT m FROM Maquina m WHERE m.estado = :estado")
+@NamedQuery(name = "Maquina.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado", query = "SELECT m FROM Maquina m WHERE "
+        + "(:tipoMaquina IS NULL OR EXISTS (FROM m.tipoMaquina t WHERE t.idTipoMaquina = :tipoMaquina)) AND "
+        + "(:capacidadCarga IS NULL OR m.capacidadCarga = :capacidadCarga) AND "
+        + "(:fabricante IS NULL OR m.fabricante = :fabricante) AND "
+        + "(:estado IS NULL OR m.estado = :estado)")
 public class Maquina {
 
     @Id
