@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import base.dto.maquina.MaquinaDtoResponse;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.service.MaquinaService;
 import org.junit.jupiter.api.DisplayName;
@@ -26,8 +27,8 @@ public class ObtenerMaquinasPorIdServiceTest {
     void obtenerMaquinasPorIdOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina = new Maquina(1, "F1", "M1", 1500, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, "Torito");
+        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
         Mockito.when(maquinaRepository.find(1)).thenReturn(maquina);
         Mockito.when(maquinaService.obtenerMaquinaPorId(1)).thenReturn(maquinaDtoResponse);
 

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import base.dto.maquina.MaquinaDtoRequest;
 import base.dto.maquina.MaquinaDtoResponse;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.TipoMaquinaRepository;
 import camycar_rentals.service.MaquinaService;
 import org.junit.jupiter.api.DisplayName;
@@ -26,13 +27,13 @@ public class CrearMaquinaServiceTest {
     void crearMaquinaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, "Torito");
-        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M1", 1500, 1);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
+        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M1", 1500, 1, EstadoEnum.DISPONIBLE);
         Mockito.when(tipoMaquinaRepository.find(1)).thenReturn(tipoMaquina);
         Mockito.when(maquinaService.crearMaquina(maquinaDtoRequest)).thenReturn(maquinaDtoResponse);
 
         // When
-        MaquinaDtoResponse maquinaDtoResponseDevuelto = maquinaService.crearMaquina(new MaquinaDtoRequest("F1","M1",1500,1));
+        MaquinaDtoResponse maquinaDtoResponseDevuelto = maquinaService.crearMaquina(new MaquinaDtoRequest("F1", "M1", 1500, 1, EstadoEnum.DISPONIBLE));
 
         // Then
         assertEquals(maquinaDtoResponse, maquinaDtoResponseDevuelto);

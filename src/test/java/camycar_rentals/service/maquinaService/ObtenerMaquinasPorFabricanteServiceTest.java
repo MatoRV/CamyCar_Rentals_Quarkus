@@ -5,6 +5,7 @@ import java.util.List;
 import base.dto.maquina.MaquinaDtoResponse;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.service.MaquinaService;
 import org.junit.jupiter.api.DisplayName;
@@ -27,8 +28,8 @@ public class ObtenerMaquinasPorFabricanteServiceTest {
     void obtenerMaquinasPorFabricanteOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina1 = new Maquina(1, "F1", "M1", 1500, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, "Torito");
+        Maquina maquina1 = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
         Mockito.when(maquinaRepository.obtenerMaquinasPorFabricante("F1")).thenReturn(List.of(maquina1));
         Mockito.when(maquinaService.obtenerMaquinasPorFabricante("F1")).thenReturn(List.of(maquinaDtoResponse));
 

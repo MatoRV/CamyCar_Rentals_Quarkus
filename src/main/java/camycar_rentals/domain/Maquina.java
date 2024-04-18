@@ -1,6 +1,8 @@
 package camycar_rentals.domain;
 
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,6 +40,10 @@ public class Maquina {
 
     @Column(name = "capacidad_carga")
     private Integer capacidadCarga;
+
+    @Column(name = "estado")
+    @Convert(converter = EstadoEnum.Converter.class)
+    private EstadoEnum estado;
 
     @ManyToOne()
     @JoinColumn(name = "id_tipo_maquina", referencedColumnName = "id_tipo_maquina")
