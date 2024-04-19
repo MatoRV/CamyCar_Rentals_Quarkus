@@ -3,6 +3,7 @@ package camycar_rentals.dto.converters;
 import java.util.List;
 import base.dto.cliente.ClienteDtoRequest;
 import base.dto.maquina.MaquinaDtoRequest;
+import base.dto.reserva.ReservaDtoRequest;
 import base.dto.tipomaquina.TipoMaquinaDtoRequest;
 import camycar_rentals.domain.Cliente;
 import camycar_rentals.domain.Maquina;
@@ -30,5 +31,9 @@ public interface ConverterDtoToJpa {
 
     List<Maquina> convertMaquinaList(List<MaquinaDtoRequest> maquinaDtoRequestList);
 
-    Reserva convertReserva();
+    Reserva convertReserva(ReservaDtoRequest reservaDtoRequest);
+
+    Reserva convertReserva(@MappingTarget Reserva reserva, ReservaDtoRequest reservaDtoRequest);
+
+    List<Reserva> convertReservaList(List<ReservaDtoRequest> reservaDtoRequests);
 }
