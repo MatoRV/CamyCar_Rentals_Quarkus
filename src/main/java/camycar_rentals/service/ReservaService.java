@@ -7,6 +7,7 @@ import base.service.BaseService;
 import camycar_rentals.domain.Cliente;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.Reserva;
+import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
 import camycar_rentals.repository.ClienteRepository;
@@ -36,6 +37,8 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
         Maquina maquina = maquinaRepository.find(reservaDtoRequest.getIdMaquina());
         Cliente cliente = clienteRepository.find(reservaDtoRequest.getIdCliente());
         Reserva reserva = converterDtoToJpa.convertReserva(reservaDtoRequest);
+        maquina.setEstado(EstadoEnum.ALQUILADO);
+        maquinaRepository.edit(maquina);
         reserva.setMaquina(maquina);
         reserva.setCliente(cliente);
         return converterJpaToDto.convertReservaDtoResponse(create(reserva));

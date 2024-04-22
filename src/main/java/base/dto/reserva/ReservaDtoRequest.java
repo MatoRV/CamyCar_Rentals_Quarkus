@@ -14,6 +14,8 @@ public class ReservaDtoRequest {
 
     private Integer idCliente;
 
+    private String direccion;
+
     @Date
     private String fechaInicio;
 

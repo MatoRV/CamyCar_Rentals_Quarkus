@@ -18,6 +18,8 @@ public class ReservaDtoResponse {
 
     private ClienteDtoResponse cliente;
 
+    private String direccion;
+
     @Date
     private String fechaInicio;
 
