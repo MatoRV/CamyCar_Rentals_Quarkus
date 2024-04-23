@@ -9,6 +9,7 @@ import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.repository.TipoMaquinaRepository;
 import camycar_rentals.service.MaquinaService;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,7 +19,7 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class EditarMaquinaPorIdServiceTest {
 
-    @InjectMock
+    @Inject
     MaquinaService maquinaService;
 
     @InjectMock
@@ -33,14 +34,15 @@ public class EditarMaquinaPorIdServiceTest {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
         Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
+        Maquina maquinaEdit = new Maquina(1, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, tipoMaquina);
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, "Torito");
         MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M2", 2000, 1, EstadoEnum.DISPONIBLE);
         Mockito.when(tipoMaquinaRepository.find(1)).thenReturn(tipoMaquina);
         Mockito.when(maquinaRepository.find(1)).thenReturn(maquina);
-        Mockito.when(maquinaService.editarMaquinaPorId(1, maquinaDtoRequest)).thenReturn(maquinaDtoResponse);
+        Mockito.when(maquinaRepository.edit(maquina)).thenReturn(maquinaEdit);
 
         // When
-        MaquinaDtoResponse maquinaDtoResponseDevuelto = maquinaService.editarMaquinaPorId(1, new MaquinaDtoRequest("F1", "M2", 2000, 1, EstadoEnum.DISPONIBLE));
+        MaquinaDtoResponse maquinaDtoResponseDevuelto = maquinaService.editarMaquinaPorId(1, maquinaDtoRequest);
 
         // Then
         assertEquals(maquinaDtoResponse, maquinaDtoResponseDevuelto);

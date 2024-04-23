@@ -5,6 +5,7 @@ import base.dto.tipomaquina.TipoMaquinaDtoResponse;
 import camycar_rentals.domain.TipoMaquina;
 import camycar_rentals.repository.TipoMaquinaRepository;
 import camycar_rentals.service.TipoMaquinaService;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,7 +15,7 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class EliminarTipoMaquinaServiceTest {
 
-    @InjectMock
+    @Inject
     TipoMaquinaService tipoMaquinaService;
 
     @InjectMock
@@ -27,7 +28,7 @@ public class EliminarTipoMaquinaServiceTest {
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
         TipoMaquinaDtoResponse tipoMaquinaDtoResponse = new TipoMaquinaDtoResponse(1, "Torito");
         Mockito.when(tipoMaquinaRepository.find(1)).thenReturn(tipoMaquina);
-        Mockito.when(tipoMaquinaService.eliminarTipoMaquinaPorId(1)).thenReturn(tipoMaquinaDtoResponse);
+        Mockito.when(tipoMaquinaRepository.remove(tipoMaquina)).thenReturn(tipoMaquina);
 
         // When
         TipoMaquinaDtoResponse tipoMaquinaDtoResponseDevuelto = tipoMaquinaService.eliminarTipoMaquinaPorId(1);

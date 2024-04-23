@@ -7,6 +7,7 @@ import camycar_rentals.domain.TipoMaquina;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.service.MaquinaService;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,7 +17,7 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class ObtenerMaquinasPorIdServiceTest {
 
-    @InjectMock
+    @Inject
     MaquinaService maquinaService;
 
     @InjectMock
@@ -30,7 +31,6 @@ public class ObtenerMaquinasPorIdServiceTest {
         Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
         Mockito.when(maquinaRepository.find(1)).thenReturn(maquina);
-        Mockito.when(maquinaService.obtenerMaquinaPorId(1)).thenReturn(maquinaDtoResponse);
 
         // When
         MaquinaDtoResponse maquinaDtoResponseDevuelto = maquinaService.obtenerMaquinaPorId(1);

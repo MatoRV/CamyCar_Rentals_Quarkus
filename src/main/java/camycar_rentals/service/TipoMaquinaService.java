@@ -27,7 +27,8 @@ public class TipoMaquinaService extends BaseService<TipoMaquinaRepository, TipoM
 
         TipoMaquina tipoMaquina = converterDtoToJpa.convertTipoMaquina(tipoMaquinaDtoRequest);
 
-        return converterJpaToDto.convertTipoMaquinaDtoResponse(create(tipoMaquina));
+        tipoMaquina = create(tipoMaquina);
+        return converterJpaToDto.convertTipoMaquinaDtoResponse(tipoMaquina);
     }
 
     public List<TipoMaquinaDtoResponse> obtenerTiposMaquina() {

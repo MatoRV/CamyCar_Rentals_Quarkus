@@ -8,6 +8,7 @@ import camycar_rentals.domain.TipoMaquina;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.service.MaquinaService;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,7 +21,7 @@ public class ObtenerMaquinasPorFabricanteServiceTest {
     @InjectMock
     MaquinaRepository maquinaRepository;
 
-    @InjectMock
+    @Inject
     MaquinaService maquinaService;
 
     @Test
@@ -31,8 +32,6 @@ public class ObtenerMaquinasPorFabricanteServiceTest {
         Maquina maquina1 = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
         Mockito.when(maquinaRepository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(null, null, "F1", null)).thenReturn(List.of(maquina1));
-        Mockito.when(maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(null, null, "F1", null))
-                .thenReturn(List.of(maquinaDtoResponse));
 
         // When
         List<MaquinaDtoResponse> maquinaDtoResponseDevuelto =

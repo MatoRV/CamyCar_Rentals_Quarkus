@@ -36,7 +36,6 @@ public class CrearMaquinaServiceTest {
     void crearMaquinaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquinaDada = new Maquina(null, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
         Maquina maquinaEsperada = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
         MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M1", 1500, 1, EstadoEnum.DISPONIBLE);
