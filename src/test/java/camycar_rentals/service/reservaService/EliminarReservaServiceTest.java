@@ -14,7 +14,7 @@ import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class ObtenerReservaPorIdServiceTest {
+public class EliminarReservaServiceTest {
 
     @Inject
     ReservaService reservaService;
@@ -23,17 +23,18 @@ public class ObtenerReservaPorIdServiceTest {
     ReservaRepository reservaRepository;
 
     @Test
-    @DisplayName("prueba para ver si se obtiene una reserva por su id")
-    void ObtenerReservaPorId() {
+    @DisplayName("Prueba para probar que se elimina la reserva")
+    void eliminarReservaOk() {
         // Given
-        Reserva reserva = new Reserva(1, 1, null, 1, null, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
+        Reserva reservaEsperada = new Reserva(1, 1, null, 1, null, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
         ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, null, null, "direccion 1", "2024-04-22", "2024-04-24");
-        Mockito.when(reservaRepository.find(1)).thenReturn(reserva);
+        Mockito.when(reservaRepository.find(1)).thenReturn(reservaEsperada);
+        Mockito.when(reservaRepository.remove(reservaEsperada)).thenReturn(reservaEsperada);
 
         // When
-        ReservaDtoResponse reservaDtoResponseDevuelto = reservaService.obtenerReservaPorId(1);
+        ReservaDtoResponse reservaDtoResponseDevuelta = reservaService.eliminarReserva(1);
 
         // Then
-        assertEquals(reservaDtoResponse, reservaDtoResponseDevuelto);
+        assertEquals(reservaDtoResponse, reservaDtoResponseDevuelta);
     }
 }

@@ -10,7 +10,6 @@ import camycar_rentals.domain.Reserva;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
-import camycar_rentals.repository.ClienteRepository;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.repository.ReservaRepository;
 import jakarta.enterprise.context.RequestScoped;
@@ -27,21 +26,25 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     ConverterDtoToJpa converterDtoToJpa;
 
     @Inject
+    MaquinaService maquinaService;
+
+    @Inject
     MaquinaRepository maquinaRepository;
 
     @Inject
-    ClienteRepository clienteRepository;
+    ClienteService clienteService;
 
     @Transactional
     public ReservaDtoResponse crearReserva(ReservaDtoRequest reservaDtoRequest) {
-        Maquina maquina = maquinaRepository.find(reservaDtoRequest.getIdMaquina());
-        Cliente cliente = clienteRepository.find(reservaDtoRequest.getIdCliente());
-        Reserva reserva = converterDtoToJpa.convertReserva(reservaDtoRequest);
+        Maquina maquina = maquinaService.find(reservaDtoRequest.getIdMaquina());
+        Cliente cliente = clienteService.find(reservaDtoRequest.getIdCliente());
         maquina.setEstado(EstadoEnum.ALQUILADO);
         maquinaRepository.edit(maquina);
+        Reserva reserva = converterDtoToJpa.convertReserva(reservaDtoRequest);
         reserva.setMaquina(maquina);
         reserva.setCliente(cliente);
-        return converterJpaToDto.convertReservaDtoResponse(create(reserva));
+        reserva = create(reserva);
+        return converterJpaToDto.convertReservaDtoResponse(reserva);
     }
 
     public List<ReservaDtoResponse> obtenerReservas() {

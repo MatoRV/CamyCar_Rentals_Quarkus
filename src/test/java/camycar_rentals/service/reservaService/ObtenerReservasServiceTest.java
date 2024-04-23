@@ -29,7 +29,7 @@ public class ObtenerReservasServiceTest {
         // Given
         Reserva reserva = new Reserva(1,1,null,1,null,"Arrakis", LocalDate.parse("2024-04-22"),LocalDate.parse("2024-04-24"));
         List<Reserva> reservas = List.of(reserva);
-        ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1,null,null,"Arrakis","2024-04-22","2024-04-24");
+        ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, null, null, "Arrakis", "2024-04-22", "2024-04-24");
         List<ReservaDtoResponse> reservaDtoResponses = List.of(reservaDtoResponse);
         Mockito.when(reservaRepository.findAll(List.of())).thenReturn(reservas);
 

@@ -1,6 +1,5 @@
 package base.dto.reserva;
 
-import base.dto.cliente.ClienteDtoResponse;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.validator.Date;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ public class ReservaDtoResponse {
 
     private MaquinaDtoResponse maquina;
 
-    private ClienteDtoResponse cliente;
+    private String nombreCliente;
 
     private String direccion;
 

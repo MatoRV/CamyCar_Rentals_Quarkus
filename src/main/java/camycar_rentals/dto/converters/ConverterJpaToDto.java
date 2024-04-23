@@ -28,6 +28,7 @@ public interface ConverterJpaToDto {
 
     List<MaquinaDtoResponse> convertMaquinaDtoResponseList(List<Maquina> maquinas);
 
+    @Mapping(source = "reserva.cliente.nombre", target = "nombreCliente")
     ReservaDtoResponse convertReservaDtoResponse(Reserva reserva);
 
     List<ReservaDtoResponse> convertReservaDtoResponseList(List<Reserva> reservas);

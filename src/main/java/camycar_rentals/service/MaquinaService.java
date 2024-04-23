@@ -11,7 +11,6 @@ import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
 import camycar_rentals.repository.MaquinaRepository;
-import camycar_rentals.repository.TipoMaquinaRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -26,17 +25,18 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
     ConverterDtoToJpa converterDtoToJpa;
 
     @Inject
-    TipoMaquinaRepository tipoMaquinaRepository;
+    TipoMaquinaService tipoMaquinaService;
 
     @Transactional
     public MaquinaDtoResponse crearMaquina(MaquinaDtoRequest maquinaDtoRequest) {
 
-        TipoMaquina tipoMaquina = tipoMaquinaRepository.find(maquinaDtoRequest.getIdTipoMaquina());
+        TipoMaquina tipoMaquina = tipoMaquinaService.find(maquinaDtoRequest.getIdTipoMaquina());
 
         Maquina maquina = converterDtoToJpa.convertMaquina(maquinaDtoRequest);
         maquina.setTipoMaquina(tipoMaquina);
 
-        return converterJpaToDto.convertMaquinaDtoResponse(create(maquina));
+        maquina = create(maquina);
+        return converterJpaToDto.convertMaquinaDtoResponse(maquina);
     }
 
     public List<MaquinaDtoResponse> obtenerMaquinas() {
@@ -50,7 +50,7 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
 
     @Transactional
     public MaquinaDtoResponse editarMaquinaPorId(Integer idMaquina, MaquinaDtoRequest maquinaDtoRequest) {
-        TipoMaquina tipoMaquina = tipoMaquinaRepository.find(maquinaDtoRequest.getIdTipoMaquina());
+        TipoMaquina tipoMaquina = tipoMaquinaService.find(maquinaDtoRequest.getIdTipoMaquina());
         Maquina maquinaData = find(idMaquina);
         Maquina maquinaEdit = converterDtoToJpa.convertMaquina(maquinaData, maquinaDtoRequest);
         maquinaEdit.setTipoMaquina(tipoMaquina);
@@ -66,7 +66,7 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
     public List<MaquinaDtoResponse> obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(Integer tipoMaquina, Integer capacidadCarga,
             String fabricante, EstadoEnum estadoEnum) {
         if (tipoMaquina != null) {
-            tipoMaquinaRepository.find(tipoMaquina);
+            tipoMaquinaService.find(tipoMaquina);
         }
         return converterJpaToDto.convertMaquinaDtoResponseList(
                 repository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(tipoMaquina, capacidadCarga, fabricante, estadoEnum));
