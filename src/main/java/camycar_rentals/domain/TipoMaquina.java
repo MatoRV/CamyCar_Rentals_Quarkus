@@ -1,5 +1,6 @@
 package camycar_rentals.domain;
 
+import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,4 +27,22 @@ public class TipoMaquina {
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        TipoMaquina that = (TipoMaquina) o;
+        return Objects.equals(idTipoMaquina, that.idTipoMaquina) && Objects.equals(nombre, that.nombre);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTipoMaquina, nombre);
+    }
+    @Override
+    public String toString() {
+        return "TipoMaquina{" + "idTipoMaquina=" + idTipoMaquina + ", nombre='" + nombre + '\'' + '}';
+    }
 }

@@ -1,5 +1,6 @@
 package camycar_rentals.domain;
 
+import java.util.Objects;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -50,4 +51,43 @@ public class Maquina {
     @ManyToOne()
     @JoinColumn(name = "id_tipo_maquina", referencedColumnName = "id_tipo_maquina")
     private TipoMaquina tipoMaquina;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Maquina maquina = (Maquina) o;
+        return Objects.equals(idMaquina, maquina.idMaquina)
+                && Objects.equals(fabricante, maquina.fabricante)
+                && Objects.equals(modelo, maquina.modelo)
+                && Objects.equals(capacidadCarga, maquina.capacidadCarga)
+                && estado == maquina.estado
+                && Objects.equals(tipoMaquina, maquina.tipoMaquina);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(idMaquina, fabricante, modelo, capacidadCarga, estado, tipoMaquina);
+    }
+
+    @Override
+    public String toString() {
+        return "Maquina{"
+                + "idMaquina="
+                + idMaquina
+                + ", fabricante='"
+                + fabricante
+                + '\''
+                + ", modelo='"
+                + modelo
+                + '\''
+                + ", capacidadCarga="
+                + capacidadCarga
+                + ", estado="
+                + estado
+                + ", tipoMaquina="
+                + tipoMaquina
+                + '}';
+    }
 }
