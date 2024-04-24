@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import camycar_rentals.domain.Reserva;
 import com.openhtmltopdf.pdfboxout.PdfBoxRenderer;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import jakarta.enterprise.context.RequestScoped;
@@ -16,9 +17,9 @@ import io.quarkus.qute.Template;
 @RequestScoped
 public class PdfGeneratorService {
 
-    public void generarPdf() throws IOException {
+    public void generarPdf(Reserva reserva) throws IOException {
         Engine engine = Engine.builder().addDefaults().build();
-        File template = new File("C:\\Users\\victor.mato\\Documents\\PI\\CamyCar_Rentals_Quarkus\\src\\main\\resources\\templates\\template.html");
+        File template = new File("src\\main\\resources\\templates\\template.html");
         StrBuilder templ = new StrBuilder();
         Object[] lineas;
 
@@ -32,22 +33,22 @@ public class PdfGeneratorService {
 
         Template pdfTemplate = engine.parse(templ.toString());
 
-        String result = pdfTemplate.data("name","Victor").render();
+        String result = pdfTemplate.data("nombreCliente", reserva.getCliente().getNombre()).data("direccion", reserva.getDireccion())
+                .data("fechaInicio", reserva.getFechaInicio()).data("fechaFin", reserva.getFechaFin()).data("fabricante", reserva.getMaquina().getFabricante())
+                .data("modelo", reserva.getMaquina().getModelo()).data("capacidadCarga", reserva.getMaquina().getCapacidadCarga()).render();
 
         PDDocument pdDocument = new PDDocument();
 
         PdfRendererBuilder builder = new PdfRendererBuilder();
         builder.useFastMode();
-        builder.withHtmlContent(result,PdfGeneratorService.class.getResource("/templates/").toExternalForm());
+        builder.withHtmlContent(result, PdfGeneratorService.class.getResource("/templates/").toExternalForm());
         builder.usePDDocument(pdDocument);
         PdfBoxRenderer renderer = builder.buildPdfRenderer();
         renderer.createPDFWithoutClosing();
         renderer.close();
 
-        OutputStream os = new FileOutputStream("C:\\Users\\victor.mato\\Documents\\PI\\CamyCar_Rentals_Quarkus\\src\\main\\resources\\ficheros"
-                + "\\output.pdf");
+        OutputStream os = new FileOutputStream("src\\main\\resources\\ficheros\\Reserva" + reserva.getIdReserva() + ".pdf");
         pdDocument.save(os);
         os.close();
-
     }
 }

@@ -1,5 +1,6 @@
 package camycar_rentals.controller;
 
+import java.io.IOException;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
@@ -50,7 +51,7 @@ public class ReservaController {
     @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = ReservaDtoResponse.class)))
     @APIResponse(responseCode = "400", description = "BAD REQUEST")
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response crearReserva(ReservaDtoRequest reservaDtoRequest) {
+    public Response crearReserva(ReservaDtoRequest reservaDtoRequest) throws IOException {
         return Response.status(Response.Status.CREATED).entity(reservaService.crearReserva(reservaDtoRequest)).build();
     }
 

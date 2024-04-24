@@ -1,5 +1,6 @@
 package camycar_rentals.service;
 
+import java.io.IOException;
 import java.util.List;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.reserva.ReservaDtoResponse;
@@ -34,8 +35,11 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     @Inject
     ClienteService clienteService;
 
+    @Inject
+    PdfGeneratorService pdfGeneratorService;
+
     @Transactional
-    public ReservaDtoResponse crearReserva(ReservaDtoRequest reservaDtoRequest) {
+    public ReservaDtoResponse crearReserva(ReservaDtoRequest reservaDtoRequest) throws IOException {
         Maquina maquina = maquinaService.find(reservaDtoRequest.getIdMaquina());
         Cliente cliente = clienteService.find(reservaDtoRequest.getIdCliente());
         maquina.setEstado(EstadoEnum.ALQUILADO);
@@ -44,6 +48,7 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
         reserva.setMaquina(maquina);
         reserva.setCliente(cliente);
         reserva = create(reserva);
+        pdfGeneratorService.generarPdf(reserva);
         return converterJpaToDto.convertReservaDtoResponse(reserva);
     }
 

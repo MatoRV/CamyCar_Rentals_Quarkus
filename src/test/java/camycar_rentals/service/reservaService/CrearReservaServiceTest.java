@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import java.io.IOException;
 import java.time.LocalDate;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.reserva.ReservaDtoRequest;
@@ -45,7 +46,7 @@ public class CrearReservaServiceTest {
 
     @Test
     @DisplayName("prueba para ver si se crea una reserva")
-    void crearReservaOk() {
+    void crearReservaOk() throws IOException {
         // Given
         ReservaDtoRequest reservaDtoRequest = new ReservaDtoRequest(1, 1, "direccion 1", "2024-04-22", "2024-04-24");
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
