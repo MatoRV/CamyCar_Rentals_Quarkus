@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root{
+          --font-color: black;
+          --table-row-separator-color: #BFC0C3;
+        }
+
+        @page{
+          size:A4;
+          margin:8cm 0 3cm 0;
+
+          @top-left{
+            content:element(header);
+          }
+
+          @bottom-left{
+            content:element(footer);
+          }
+        }
+
+        body{
+          margin:0;
+          padding:1cm 2cm;
+          color:black;
+          font-family: 'Montserrat', sans-serif;
+          font-size:10pt;
+        }
+
+        a{
+          color:inherit;
+          text-decoration:none;
+        }
+
+        hr{
+          margin:1cm 0;
+          height:0;
+          border:0;
+          border-top:1mm solid #60D0E4;
+        }
+
+        header{
+          height:8cm;
+          padding:0 2cm;
+          position:running(header);
+          background-color:#B8E6F1;
+        }
+
+        header .headerSection1{
+          margin-top:.5cm;
+          display:flex;
+          justify-content:space-between;
+        }
+
+        header .headerSection2{
+          margin-top:.5cm;
+          display:flex;
+          justify-content:space-between;
+        }
+
+
+        header .headerSection1 > div{
+          width:45%;
+          float:left;
+        }
+
+        header .headerSection2 > div{
+          width:45%;
+          float:left;
+        }
+
+        header .logoAndName{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+        }
+
+        header .invoiceDetails{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+        }
+
+
+
+        header .headerSection1 h3{
+          margin:0 .75cm 0 0;
+          color:#60D0E4;
+        }
+
+        header .headerSection1 div:last-of-type h3:last-of-type{
+          margin-top:.5cm;
+        }
+
+        header .headerSection1 div p{
+          margin-top:2px;
+        }
+
+        header h1,
+        header h2,
+        header h3,
+        header p{
+          margin:0;
+        }
+
+        header .invoiceDetails,
+        header .invoiceDetails h2{
+          text-align:right;
+          font-size:1em;
+          text-transform:none;
+        }
+
+        header h2,
+        header h3{
+          text-transform:uppercase;
+        }
+
+        header hr{
+          margin:1cm 0 .5cm 0;
+        }
+
+        main table{
+          width:100%;
+          border-collapse:collapse;
+        }
+
+        main table thead th{
+          height:1cm;
+          color:#60D0E4;
+        }
+
+        main table thead th:nth-of-type(2),
+        main table thead th:nth-of-type(3),
+        main table thead th:last-of-type{
+          width:2.5cm;
+        }
+
+        main table tbody td{
+          padding:2mm 0;
+        }
+
+        main table thead th:last-of-type,
+        main table tbody td:last-of-type{
+          text-align:right;
+        }
+
+        main table th{
+          text-align:left;
+        }
+
+        main table.summary{
+          width:calc(40% + 2cm);
+          margin-left:60%;
+          margin-top:.5cm;
+        }
+
+        main table.summary tr.total{
+          font-weight:bold;
+          background-color:#60D0E4;
+        }
+
+        main table.summary th{
+          padding:4mm 0 4mm 1cm;
+        }
+
+        main table.summary td{
+          padding:4mm 2cm 4mm 0;
+          border-bottom:0;
+        }
+
+        aside{
+          -prince-float: bottom;
+          padding:0 2cm .5cm 2cm;
+        }
+
+        aside > div{
+          display:flex;
+          justify-content:space-between;
+        }
+
+        aside > div > div{
+          width:45%;
+          float:left;
+        }
+
+        aside > div > div ul{
+          list-style-type:none;
+          margin:0;
+        }
+
+        footer{
+          height:3cm;
+          line-height:3cm;
+          padding:0 2cm;
+          position:running(footer);
+          background-color:#BFC0C3;
+          font-size:8pt;
+          display:flex;
+          align-items:baseline;
+          justify-content:space-between;
+        }
+
+        footer a:first-child{
+          font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- The header element will appear on the top of each page of this invoice document. -->
+    <header>
+        <div class="headerSection1">
+            <!-- As a logo we take an SVG element and add the name in an standard H1 element behind it. -->
+            <div class="logoAndName">
+                <svg>
+                    <circle cx="50%" cy="50%" r="40%" stroke="black" stroke-width="3" fill="black" />
+                </svg>
+                <h1>Logo &amp; Name</h1>
+            </div>
+            <!-- Details about the invoice are on the right top side of each page. -->
+            <div class="invoiceDetails">
+                <h2>Reserva #{idReserva}</h2>
+                <p>
+                    {fechaActual}
+                </p>
+            </div>
+        </div>
+        <!-- The two header rows are divided by an blue line, we use the HR element for this. -->
+        <hr />
+        <div class="headerSection2">
+            <!-- The clients details come on the left side below the logo and company name. -->
+            <div>
+                <h3>Invoice to</h3>
+                <p>
+                    <b>{nombreCliente}</b>
+                    <br />
+                    {direccion}
+                    <br />
+                    Indianapolis, IN 46260
+                    <br />
+                    <a href="mailto:clientname@clientwebsite.com">
+                        clientname@clientwebsite.com
+                    </a>
+                    <br />
+                    317.123.8765
+                </p>
+            </div>
+            <!-- Additional details can be placed below the invoice details. -->
+            <div>
+                <h3>Fecha Inicio</h3>
+                <p>
+                    <b>{fechaInicio}</b>
+                </p>
+                <h3>Fecha Fin</h3>
+                <p>
+                    <b>{fechaFin}</b>
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- The footer contains the company's website and address. To align the address details we will use flexbox in the CSS style. -->
+    <footer>
+        <a href="https://companywebsite.com">
+            companywebsite.com
+        </a>
+        <a href="mailto:company@website.com">
+            company@website.com
+        </a>
+        <span>
+      317.123.8765
+    </span>
+        <span>
+      123 Alphabet Road, Suite 01, Indianapolis, IN 46260
+    </span>
+    </footer>
+
+    <!-- In the main section the table for the separate items is added. Also we add another table for the summary, so subtotal, tax and total amount. -->
+    <main>
+        <table>
+            <!-- A THEAD element is used to ensure the header of the table is repeated if it consumes more than one page. -->
+            <thead>
+            <tr>
+                <th>Item Description</th>
+                <th>Rate</th>
+                <th>Amount</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <!-- The single invoice items are all within the TBODY of the table. -->
+            <tbody>
+                <tr>
+                    <td>
+                        <b>Modelo maquina</b>
+                        <br />
+                        {modelo}
+                    </td>
+                    <td>
+                        $100
+                    </td>
+                    <td>
+                        4
+                    </td>
+                    <td>
+                        $400.00
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Fabricante</b>
+                        <br />
+                        {fabricante}
+                    </td>
+                    <td>
+                        $250
+                    </td>
+                    <td>
+                        2
+                    </td>
+                    <td>
+                        $500.00
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Capacidad carga</b>
+                        <br />
+                        {capacidadCarga}
+                    </td>
+                    <td>
+                        $300
+                    </td>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        $300.00
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- The summary table contains the subtotal, tax and total amount. -->
+        <table class="summary">
+            <tr>
+                <th>
+                    Subtotal
+                </th>
+                <td>
+                    $1200.00
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Tax 4.7%
+                </th>
+                <td>
+                    $000.00
+                </td>
+            </tr>
+            <tr class="total">
+                <th>
+                    Total
+                </th>
+                <td>
+                    $12,000.00
+                </td>
+            </tr>
+        </table>
+    </main>
+    <!-- Within the aside tag we will put the terms and conditions which shall be shown below the invoice table. -->
+    <aside>
+        <!-- Before the terms and conditions we will add another blue divider line with the help of the HR tag. -->
+        <hr />
+        <div>
+            <div class="aside1">
+                <b>Terms &amp; Conditions</b>
+                <p>
+                    Please make payment within 30 days of issue of the invoice.
+                </p>
+            </div>
+            <div class="aside2">
+                <b>Payment Options</b>
+                <ul>
+                    <li>Paypal</li>
+                    <li>Credit Card</li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>
