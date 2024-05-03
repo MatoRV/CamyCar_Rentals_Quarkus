@@ -5,6 +5,7 @@ import camycar_rentals.domain.enumerados.EstadoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,21 +36,21 @@ public class Maquina {
     @Column(name = "id_maquina", nullable = false)
     private Integer idMaquina;
 
-    @Column(name = "fabricante")
+    @Column(name = "fabricante", nullable = false)
     private String fabricante;
 
-    @Column(name = "modelo")
+    @Column(name = "modelo", nullable = false)
     private String modelo;
 
-    @Column(name = "capacidad_carga")
+    @Column(name = "capacidad_carga", nullable = false)
     private Integer capacidadCarga;
 
-    @Column(name = "estado")
+    @Column(name = "estado", nullable = false)
     @Convert(converter = EstadoEnum.Converter.class)
     private EstadoEnum estado;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_tipo_maquina", referencedColumnName = "id_tipo_maquina")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_maquina", referencedColumnName = "id_tipo_maquina", nullable = false)
     private TipoMaquina tipoMaquina;
 
     @Override

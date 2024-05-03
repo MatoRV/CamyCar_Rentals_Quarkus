@@ -1,12 +1,17 @@
 package camycar_rentals.domain;
 
-import jakarta.persistence.*;
+import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "cliente")
@@ -25,13 +30,13 @@ public class Cliente {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "usuario_cliente", nullable = false, unique = true)
+    @Column(name = "usuario_cliente", nullable = false)
     private String nombreUsuario;
 
     @Column(name = "contrasena", nullable = false)
     private String contrasena;
 
-    @Column(name = "dni_cliente", nullable = false, unique = true)
+    @Column(name = "dni_cliente", nullable = false)
     private String dniCliente;
 
     @Override
