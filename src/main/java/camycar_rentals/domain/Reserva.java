@@ -37,13 +37,13 @@ public class Reserva {
     @JoinColumn(name = "id_maquina", referencedColumnName = "id_maquina", nullable = false)
     private Maquina maquina;
 
-    @Column(name = "id_cliente", nullable = false)
-    private Integer idCliente;
+    @Column(name = "id_usuario", nullable = false)
+    private Integer idUsuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("idCliente")
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente", nullable = false)
-    private Cliente cliente;
+    @MapsId("idUsuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false)
+    private Usuario usuario;
 
     @Column(name = "direccion", nullable = false)
     private String direccion;

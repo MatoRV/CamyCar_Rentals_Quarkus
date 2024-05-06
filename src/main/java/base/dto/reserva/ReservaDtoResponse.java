@@ -15,7 +15,7 @@ public class ReservaDtoResponse {
 
     private MaquinaDtoResponse maquina;
 
-    private String nombreCliente;
+    private String nombreUsuario;
 
     private String direccion;
 

@@ -11,18 +11,18 @@ import java.util.List;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.reserva.ReservaDtoResponse;
-import camycar_rentals.domain.Cliente;
 import camycar_rentals.domain.Localidad;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.Reserva;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.Usuario;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.repository.LocalidadRepository;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.repository.ReservaRepository;
-import camycar_rentals.service.ClienteService;
 import camycar_rentals.service.MaquinaService;
 import camycar_rentals.service.ReservaService;
+import camycar_rentals.service.UsuarioService;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ public class CrearReservaServiceTest {
     ReservaRepository reservaRepository;
 
     @InjectMock
-    ClienteService clienteService;
+    UsuarioService usuarioService;
 
     @InjectMock
     MaquinaService maquinaService;
@@ -59,13 +59,13 @@ public class CrearReservaServiceTest {
         Localidad localidad = new Localidad(1, "Albacete");
         Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
         Maquina maquinaEdit = new Maquina(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, tipoMaquina, 4500);
-        Cliente cliente = new Cliente(1, "Cliente 1", "cliente_1", "", "11111111C");
-        Reserva reservaEsperada = new Reserva(1, 1, maquina, 1, cliente, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
+        Usuario usuario = new Usuario(1, "Cliente 1", "", "11111111C", "apellido1", "apellido2", "prueba@example.com");
+        Reserva reservaEsperada = new Reserva(1, 1, maquina, 1, usuario, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, "Torito", 4500);
         ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, maquinaDtoResponse, "Cliente 1", "direccion 1", "2024-04-22", "2024-04-24");
         when(maquinaService.find(1)).thenReturn(maquina);
         when(localidadRepository.obtenerLocalidadPorNombre(any())).thenReturn(List.of(localidad));
-        when(clienteService.find(1)).thenReturn(cliente);
+        when(usuarioService.find(1)).thenReturn(usuario);
         when(maquinaRepository.edit(maquina)).thenReturn(maquinaEdit);
         when(reservaRepository.create(any())).thenReturn(reservaEsperada);
 
@@ -74,7 +74,7 @@ public class CrearReservaServiceTest {
 
         // Then
         verify(maquinaService, times(1)).find(1);
-        verify(clienteService, times(1)).find(1);
+        verify(usuarioService, times(1)).find(1);
         verify(maquinaRepository, times(1)).edit(maquina);
         assertEquals(reservaDtoResponse, reservaDtoResponseDevuelto);
     }

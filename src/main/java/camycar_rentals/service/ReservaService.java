@@ -5,9 +5,9 @@ import java.util.List;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.reserva.ReservaDtoResponse;
 import base.service.BaseService;
-import camycar_rentals.domain.Cliente;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.Reserva;
+import camycar_rentals.domain.Usuario;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
@@ -33,7 +33,7 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     MaquinaRepository maquinaRepository;
 
     @Inject
-    ClienteService clienteService;
+    UsuarioService usuarioService;
 
     @Inject
     PdfGeneratorService pdfGeneratorService;
@@ -41,12 +41,12 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     @Transactional
     public ReservaDtoResponse crearReserva(ReservaDtoRequest reservaDtoRequest) throws IOException {
         Maquina maquina = maquinaService.find(reservaDtoRequest.getIdMaquina());
-        Cliente cliente = clienteService.find(reservaDtoRequest.getIdCliente());
+        Usuario usuario = usuarioService.find(reservaDtoRequest.getIdCliente());
         maquina.setEstado(EstadoEnum.ALQUILADO);
         maquinaRepository.edit(maquina);
         Reserva reserva = converterDtoToJpa.convertReserva(reservaDtoRequest);
         reserva.setMaquina(maquina);
-        reserva.setCliente(cliente);
+        reserva.setUsuario(usuario);
         reserva = create(reserva);
         pdfGeneratorService.generarPdf(reserva);
         return converterJpaToDto.convertReservaDtoResponse(reserva);

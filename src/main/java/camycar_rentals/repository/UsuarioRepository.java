@@ -1,7 +1,7 @@
 package camycar_rentals.repository;
 
 import base.repository.AbstractRepository;
-import camycar_rentals.domain.Cliente;
+import camycar_rentals.domain.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -9,13 +9,13 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 @ApplicationScoped
-public class ClienteRepository extends AbstractRepository<Cliente, Integer> {
+public class UsuarioRepository extends AbstractRepository<Usuario, Integer> {
 
     @Inject
     private EntityManager em;
 
-    public ClienteRepository() {
-        super(Cliente.class);
+    public UsuarioRepository() {
+        super(Usuario.class);
     }
 
     @Override
@@ -23,9 +23,9 @@ public class ClienteRepository extends AbstractRepository<Cliente, Integer> {
         return em;
     }
 
-    public Boolean obtenerPorDni(Cliente cliente) {
-        Query query = em.createNamedQuery("Cliente.obtenerPorDni");
-        query.setParameter("dniCliente", cliente.getDniCliente());
+    public Boolean obtenerPorDni(Usuario usuario) {
+        Query query = em.createNamedQuery("Usuario.obtenerPorDni");
+        query.setParameter("dniUsuario", usuario.getDniUsuario());
         try {
             query.getSingleResult();
         } catch (NoResultException e) {

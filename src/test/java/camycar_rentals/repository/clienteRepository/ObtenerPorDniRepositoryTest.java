@@ -1,6 +1,6 @@
 package camycar_rentals.repository.clienteRepository;
 
-import camycar_rentals.repository.ClienteRepository;
+import camycar_rentals.repository.UsuarioRepository;
 import jakarta.inject.Inject;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -8,7 +8,7 @@ import io.quarkus.test.junit.QuarkusTest;
 public class ObtenerPorDniRepositoryTest {
 
     @Inject
-    ClienteRepository clienteRepository;
+    UsuarioRepository usuarioRepository;
 
     //    @Test
     //    @DisplayName("prueba para obtener los cliente por dni")

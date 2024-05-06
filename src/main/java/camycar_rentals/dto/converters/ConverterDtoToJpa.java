@@ -1,23 +1,23 @@
 package camycar_rentals.dto.converters;
 
 import java.util.List;
-import base.dto.cliente.ClienteDtoRequest;
 import base.dto.maquina.MaquinaDtoRequest;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.tipomaquina.TipoMaquinaDtoRequest;
-import camycar_rentals.domain.Cliente;
+import base.dto.usuario.UsuarioDtoRequest;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.Reserva;
 import camycar_rentals.domain.TipoMaquina;
+import camycar_rentals.domain.Usuario;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "cdi")
 public interface ConverterDtoToJpa {
 
-    Cliente convertCliente(ClienteDtoRequest clienteDtoRequest);
+    Usuario convertUsuario(UsuarioDtoRequest usuarioDtoRequest);
 
-    Cliente convertCliente(@MappingTarget Cliente clienteData, ClienteDtoRequest request);
+    Usuario convertUsuario(@MappingTarget Usuario usuarioData, UsuarioDtoRequest request);
 
     TipoMaquina convertTipoMaquina(TipoMaquinaDtoRequest tipoMaquinaDtoRequest);
 

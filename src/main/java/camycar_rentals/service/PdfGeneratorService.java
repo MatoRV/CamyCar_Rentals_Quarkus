@@ -69,7 +69,7 @@ public class PdfGeneratorService {
         Integer precioTotalPorDias = precioPorDia * diferenciaDias;
         Integer precioTotal = precioTotalPorDias + precioTarifa;
 
-        String result = pdfTemplate.data("idReserva", reserva.getIdReserva()).data("nombreCliente", reserva.getCliente().getNombre())
+        String result = pdfTemplate.data("idReserva", reserva.getIdReserva()).data("nombreCliente", reserva.getUsuario().getNombre())
                 .data("direccion", reserva.getDireccion()).data("fechaInicio", reserva.getFechaInicio()).data("fechaFin", reserva.getFechaFin())
                 .data("fabricante", reserva.getMaquina().getFabricante()).data("modelo", reserva.getMaquina().getModelo())
                 .data("fechaActual", LocalDate.now().toString()).data("precioPorDia", precioPorDia + "€").data("cantidadDiasAlquiler", diferenciaDias)
