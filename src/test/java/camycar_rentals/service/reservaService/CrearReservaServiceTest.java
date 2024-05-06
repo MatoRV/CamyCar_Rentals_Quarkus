@@ -53,7 +53,7 @@ public class CrearReservaServiceTest {
         Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
         Maquina maquinaEdit = new Maquina(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, tipoMaquina);
         Cliente cliente = new Cliente(1, "Cliente 1", "cliente_1", "", "11111111C");
-        Reserva reservaEsperada = new Reserva(1, 1, maquina, 1, cliente, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
+        Reserva reservaEsperada = new Reserva(1, maquina, cliente, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, "Torito");
         ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, maquinaDtoResponse, "Cliente 1", "direccion 1", "2024-04-22", "2024-04-24");
         when(maquinaService.find(1)).thenReturn(maquina);

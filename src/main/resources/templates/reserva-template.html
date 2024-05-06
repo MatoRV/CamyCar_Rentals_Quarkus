@@ -242,7 +242,6 @@
                         clientname@clientwebsite.com
                     </a>
                     <br />
-                    317.123.8765
                 </p>
             </div>
             <!-- Additional details can be placed below the invoice details. -->
@@ -281,9 +280,9 @@
             <!-- A THEAD element is used to ensure the header of the table is repeated if it consumes more than one page. -->
             <thead>
             <tr>
-                <th>Item Description</th>
-                <th>Rate</th>
-                <th>Amount</th>
+                <th>Info</th>
+                <th>Precio X dia</th>
+                <th>Cantidad dias</th>
                 <th>Total</th>
             </tr>
             </thead>
@@ -291,50 +290,39 @@
             <tbody>
                 <tr>
                     <td>
-                        <b>Modelo maquina</b>
-                        <br />
-                        {modelo}
-                    </td>
-                    <td>
-                        $100
-                    </td>
-                    <td>
-                        4
-                    </td>
-                    <td>
-                        $400.00
+                        <b>Maquina</b>
+                        <br/>
+                        {fabricante} {modelo}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <b>Fabricante</b>
-                        <br />
-                        {fabricante}
+                        <b>Dias alquiler</b>
+                        <br/>
                     </td>
                     <td>
-                        $250
+                        {precioPorDia}
                     </td>
                     <td>
-                        2
+                        {cantidadDiasAlquiler}
                     </td>
                     <td>
-                        $500.00
+                        {precioTotalPorDia}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <b>Capacidad carga</b>
-                        <br />
-                        {capacidadCarga}
+                        <b>Transporte</b>
+                        <br/>
                     </td>
                     <td>
-                        $300
+
                     </td>
                     <td>
-                        1
+
                     </td>
                     <td>
-                        $300.00
+                        {tarifaTransporte}
                     </td>
                 </tr>
             </tbody>
@@ -346,7 +334,7 @@
                     Subtotal
                 </th>
                 <td>
-                    $1200.00
+                    {precioSubTotal}
                 </td>
             </tr>
             <tr>
@@ -362,7 +350,7 @@
                     Total
                 </th>
                 <td>
-                    $12,000.00
+                    {precioTotal}
                 </td>
             </tr>
         </table>
@@ -370,7 +358,7 @@
     <!-- Within the aside tag we will put the terms and conditions which shall be shown below the invoice table. -->
     <aside>
         <!-- Before the terms and conditions we will add another blue divider line with the help of the HR tag. -->
-        <hr />
+        <hr/>
         <div>
             <div class="aside1">
                 <b>Terms &amp; Conditions</b>
