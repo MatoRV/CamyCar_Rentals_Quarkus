@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedQuery(name = "TarifaTransporte.obtenerTarifaTransportePorLocalidad",
+            query = "SELECT t FROM TarifaTransporte t WHERE t.localidad.idLocalidad = :idLocalidad")
 public class TarifaTransporte {
 
     @Id
