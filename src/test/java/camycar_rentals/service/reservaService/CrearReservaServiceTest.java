@@ -7,14 +7,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.reserva.ReservaDtoResponse;
 import camycar_rentals.domain.Cliente;
+import camycar_rentals.domain.Localidad;
 import camycar_rentals.domain.Maquina;
 import camycar_rentals.domain.Reserva;
 import camycar_rentals.domain.TipoMaquina;
 import camycar_rentals.domain.enumerados.EstadoEnum;
+import camycar_rentals.repository.LocalidadRepository;
 import camycar_rentals.repository.MaquinaRepository;
 import camycar_rentals.repository.ReservaRepository;
 import camycar_rentals.service.ClienteService;
@@ -44,19 +47,24 @@ public class CrearReservaServiceTest {
     @InjectMock
     MaquinaRepository maquinaRepository;
 
+    @InjectMock
+    LocalidadRepository localidadRepository;
+
     @Test
     @DisplayName("prueba para ver si se crea una reserva")
     void crearReservaOk() throws IOException {
         // Given
         ReservaDtoRequest reservaDtoRequest = new ReservaDtoRequest(1, 1, "direccion 1", "2024-04-22", "2024-04-24");
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
-        Maquina maquinaEdit = new Maquina(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, tipoMaquina);
+        Localidad localidad = new Localidad(1, "Albacete");
+        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        Maquina maquinaEdit = new Maquina(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, tipoMaquina, 4500);
         Cliente cliente = new Cliente(1, "Cliente 1", "cliente_1", "", "11111111C");
-        Reserva reservaEsperada = new Reserva(1, maquina, cliente, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, "Torito");
+        Reserva reservaEsperada = new Reserva(1, 1, maquina, 1, cliente, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, "Torito", 4500);
         ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, maquinaDtoResponse, "Cliente 1", "direccion 1", "2024-04-22", "2024-04-24");
         when(maquinaService.find(1)).thenReturn(maquina);
+        when(localidadRepository.obtenerLocalidadPorNombre(any())).thenReturn(List.of(localidad));
         when(clienteService.find(1)).thenReturn(cliente);
         when(maquinaRepository.edit(maquina)).thenReturn(maquinaEdit);
         when(reservaRepository.create(any())).thenReturn(reservaEsperada);

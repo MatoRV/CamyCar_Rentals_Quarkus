@@ -21,4 +21,6 @@ public class MaquinaDtoResponse {
     private EstadoEnum estado;
 
     private String tipoMaquina;
+
+    private Integer peso;
 }

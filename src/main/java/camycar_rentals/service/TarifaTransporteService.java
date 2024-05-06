@@ -26,8 +26,8 @@ public class TarifaTransporteService extends BaseService<TarifaTransporteReposit
     }
 
     public TarifaTransporteDtoResponse obtenerTarifaTransportePorLocalidad(String l) {
-        Localidad localidad = localidadRepository.obtenerLocalidadPorNombre(l.toUpperCase());
-        TarifaTransporte tarifaTransporte = repository.obtenerTarifaTransportePorLocalidad(localidad.getIdLocalidad());
+        List<Localidad> localidad = localidadRepository.obtenerLocalidadPorNombre(l.toUpperCase());
+        TarifaTransporte tarifaTransporte = repository.obtenerTarifaTransportePorLocalidad(localidad.get(0).getIdLocalidad());
         return converterJpaToDto.convertTarifaTransporteDtoResponse(tarifaTransporte);
     }
 }

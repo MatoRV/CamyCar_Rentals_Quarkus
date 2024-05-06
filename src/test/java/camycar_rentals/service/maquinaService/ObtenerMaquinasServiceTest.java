@@ -29,10 +29,10 @@ public class ObtenerMaquinasServiceTest {
     void obtenerMaquinasOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina1 = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
-        Maquina maquina2 = new Maquina(2, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse1 = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
-        MaquinaDtoResponse maquinaDtoResponse2 = new MaquinaDtoResponse(2, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, "Torito");
+        Maquina maquina1 = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        Maquina maquina2 = new Maquina(2, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        MaquinaDtoResponse maquinaDtoResponse1 = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito", 4500);
+        MaquinaDtoResponse maquinaDtoResponse2 = new MaquinaDtoResponse(2, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, "Torito", 4500);
         List<MaquinaDtoResponse> maquinaDtoResponses = List.of(maquinaDtoResponse1, maquinaDtoResponse2);
         Mockito.when(maquinaRepository.findAll(List.of())).thenReturn(List.of(maquina1, maquina2));
 

@@ -33,13 +33,13 @@ public class ObtenerMaquinasPorTipoMaquinaServiceTest {
     void obtenerMaquinasPorTipoMaquinaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina.getNombre());
+        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina.getNombre(), 4500);
         Mockito.when(maquinaRepository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(1, null, null, null)).thenReturn(List.of(maquina));
         Mockito.when(tipoMaquinaService.find(1)).thenReturn(tipoMaquina);
 
         // When
-        List<MaquinaDtoResponse> maquinaDtoResponseDevuelto = maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(1,null,null,null);
+        List<MaquinaDtoResponse> maquinaDtoResponseDevuelto = maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(1, null, null, null);
 
         // Then
         assertEquals(List.of(maquinaDtoResponse), maquinaDtoResponseDevuelto);

@@ -19,4 +19,6 @@ public class MaquinaDtoRequest {
     private Integer idTipoMaquina;
 
     private EstadoEnum estado;
+
+    private Integer peso;
 }

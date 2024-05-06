@@ -36,9 +36,9 @@ public class CrearMaquinaServiceTest {
     void crearMaquinaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquinaEsperada = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
-        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M1", 1500, 1, EstadoEnum.DISPONIBLE);
+        Maquina maquinaEsperada = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito", 4500);
+        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M1", 1500, 1, EstadoEnum.DISPONIBLE, 4500);
         when(tipoMaquinaService.find(1)).thenReturn(tipoMaquina);
         when(maquinaRepository.create(any(Maquina.class))).thenReturn(maquinaEsperada);
 

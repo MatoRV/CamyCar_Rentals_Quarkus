@@ -33,10 +33,10 @@ public class EditarMaquinaPorIdServiceTest {
     void editarMaquinaPorIdOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
-        Maquina maquinaEdit = new Maquina(1, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, "Torito");
-        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M2", 2000, 1, EstadoEnum.DISPONIBLE);
+        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        Maquina maquinaEdit = new Maquina(1, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M2", 2000, EstadoEnum.DISPONIBLE, "Torito", 4500);
+        MaquinaDtoRequest maquinaDtoRequest = new MaquinaDtoRequest("F1", "M2", 2000, 1, EstadoEnum.DISPONIBLE, 4500);
         Mockito.when(tipoMaquinaRepository.find(1)).thenReturn(tipoMaquina);
         Mockito.when(maquinaRepository.find(1)).thenReturn(maquina);
         Mockito.when(maquinaRepository.edit(maquina)).thenReturn(maquinaEdit);

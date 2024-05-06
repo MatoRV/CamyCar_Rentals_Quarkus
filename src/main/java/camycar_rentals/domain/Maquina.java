@@ -53,6 +53,9 @@ public class Maquina {
     @JoinColumn(name = "id_tipo_maquina", referencedColumnName = "id_tipo_maquina", nullable = false)
     private TipoMaquina tipoMaquina;
 
+    @Column(name = "peso", nullable = false)
+    private Integer peso;
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -60,8 +63,7 @@ public class Maquina {
         if (o == null || getClass() != o.getClass())
             return false;
         Maquina maquina = (Maquina) o;
-        return Objects.equals(idMaquina, maquina.idMaquina)
-                && Objects.equals(fabricante, maquina.fabricante)
+        return Objects.equals(idMaquina, maquina.idMaquina) && Objects.equals(fabricante, maquina.fabricante)
                 && Objects.equals(modelo, maquina.modelo)
                 && Objects.equals(capacidadCarga, maquina.capacidadCarga)
                 && estado == maquina.estado

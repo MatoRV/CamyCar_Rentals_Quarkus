@@ -27,7 +27,7 @@ public class ObtenerReservasServiceTest {
     @DisplayName("prueba para ver si se obtienen las reservas")
     void obtenerReservasOk() {
         // Given
-        Reserva reserva = new Reserva(1, null, null, "Arrakis", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
+        Reserva reserva = new Reserva(1, 1, null, 1, null, "Arrakis", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
         List<Reserva> reservas = List.of(reserva);
         ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, null, null, "Arrakis", "2024-04-22", "2024-04-24");
         List<ReservaDtoResponse> reservaDtoResponses = List.of(reservaDtoResponse);

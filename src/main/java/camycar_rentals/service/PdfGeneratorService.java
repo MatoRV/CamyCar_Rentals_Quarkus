@@ -47,12 +47,12 @@ public class PdfGeneratorService {
 
         Template pdfTemplate = engine.parse(templ.toString());
 
-        Localidad localidad = localidadRepository.obtenerLocalidadPorNombre(reserva.getDireccion());
+        Localidad localidad = localidadRepository.obtenerLocalidadPorNombre(reserva.getDireccion()).get(0);
         TarifaTransporte tarifaTransporte = tarifaTransporteRepository.obtenerTarifaTransportePorLocalidad(localidad.getIdLocalidad());
         Integer precioTarifa;
-        if (reserva.getMaquina().getCapacidadCarga() <= 4000) {
+        if (reserva.getMaquina().getPeso() <= 4000) {
             precioTarifa = tarifaTransporte.getP4000();
-        } else if (reserva.getMaquina().getCapacidadCarga() <= 9000) {
+        } else if (reserva.getMaquina().getPeso() <= 9000) {
             precioTarifa = tarifaTransporte.getP9000();
         } else {
             precioTarifa = tarifaTransporte.getP14000();

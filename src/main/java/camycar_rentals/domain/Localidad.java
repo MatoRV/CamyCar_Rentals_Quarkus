@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Localidad.obtenerLocalidadPorNombre", query = "SELECT l FROM Localidad l WHERE l.nombre = :nombre")
+@NamedQuery(name = "Localidad.obtenerLocalidadPorNombre", query = "SELECT l FROM Localidad l WHERE (:nombre IS NULL OR l.nombre = :nombre)")
 public class Localidad {
 
     @Id

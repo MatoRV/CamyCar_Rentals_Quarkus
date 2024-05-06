@@ -26,7 +26,7 @@ public class ObtenerReservaPorIdServiceTest {
     @DisplayName("prueba para ver si se obtiene una reserva por su id")
     void ObtenerReservaPorId() {
         // Given
-        Reserva reserva = new Reserva(1, null, null, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
+        Reserva reserva = new Reserva(1, 1, null, 1, null, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
         ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, null, null, "direccion 1", "2024-04-22", "2024-04-24");
         Mockito.when(reservaRepository.find(1)).thenReturn(reserva);
 

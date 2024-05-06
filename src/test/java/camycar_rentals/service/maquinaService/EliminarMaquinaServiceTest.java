@@ -28,8 +28,8 @@ public class EliminarMaquinaServiceTest {
     void eliminarMaquinaOk() {
         // Given
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
-        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina);
-        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito");
+        Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, "Torito", 4500);
         Mockito.when(maquinaRepository.find(1)).thenReturn(maquina);
         Mockito.when(maquinaRepository.remove(maquina)).thenReturn(maquina);
 

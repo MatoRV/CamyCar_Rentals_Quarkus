@@ -1,5 +1,6 @@
 package camycar_rentals.repository;
 
+import java.util.List;
 import base.repository.AbstractRepository;
 import camycar_rentals.domain.Localidad;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,9 +23,9 @@ public class LocalidadRepository extends AbstractRepository<Localidad, Integer> 
         return em;
     }
 
-    public Localidad obtenerLocalidadPorNombre(String nombre) {
+    public List<Localidad> obtenerLocalidadPorNombre(String nombre) {
         TypedQuery<Localidad> query = em.createNamedQuery("Localidad.obtenerLocalidadPorNombre", Localidad.class);
-        query.setParameter("nombre",nombre);
-        return query.getSingleResult();
+        query.setParameter("nombre", nombre);
+        return query.getResultList();
     }
 }
