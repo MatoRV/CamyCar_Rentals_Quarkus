@@ -22,11 +22,11 @@ public class EliminarUsuarioServiceTest {
     UsuarioRepository usuarioRepository;
 
     @Test
-    @DisplayName("Elimina un cliente")
+    @DisplayName("Elimina un usuario")
     void eliminarClienteOk() {
         // Given
-        Usuario usuario = new Usuario(1, "Cliente 1", "apellido1", "apellido2", "prueba@example.com", "1234", "11111111C");
-        UsuarioDtoResponse usuarioDtoResponse = new UsuarioDtoResponse(1, "Cliente 1", "apellido1", "apellido2", "prueba@example.com", "11111111C");
+        Usuario usuario = new Usuario(1, "usuario 1", "apellido1", "apellido2", "prueba@example.com", "1234", "11111111C");
+        UsuarioDtoResponse usuarioDtoResponse = new UsuarioDtoResponse(1, "usuario 1", "apellido1", "apellido2", "prueba@example.com", "11111111C");
         Mockito.when(usuarioRepository.find(1)).thenReturn(usuario);
         Mockito.when(usuarioRepository.remove(usuario)).thenReturn(usuario);
 

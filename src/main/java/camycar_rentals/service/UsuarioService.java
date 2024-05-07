@@ -35,7 +35,7 @@ public class UsuarioService extends BaseService<UsuarioRepository, Usuario, Inte
         return converterJpaToDto.convertUsuario(usuario);
     }
 
-    public List<UsuarioDtoResponse> obtenerClientes() {
+    public List<UsuarioDtoResponse> obtenerUsuarios() {
         return converterJpaToDto.convertUsuarioList(findAll());
     }
 

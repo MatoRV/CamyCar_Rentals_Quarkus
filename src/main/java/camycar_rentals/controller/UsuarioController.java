@@ -22,48 +22,48 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/clientes")
+@Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-public class ClienteController extends BaseController {
+public class UsuarioController extends BaseController {
 
     @Inject
     UsuarioService usuarioService;
 
     @GET
-    @Operation(summary = "Devuelve todos los clientes")
+    @Operation(summary = "Devuelve todos los usuarios")
     @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = UsuarioDtoResponse.class)))
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response obtenerClientes() {
-        return Response.status(Response.Status.OK).entity(usuarioService.obtenerClientes()).build();
+    public Response obtenerUsuarios() {
+        return Response.status(Response.Status.OK).entity(usuarioService.obtenerUsuarios()).build();
     }
 
     @POST
-    @Operation(summary = "Crea un cliente")
+    @Operation(summary = "Crea un usuario")
     @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = UsuarioDtoResponse.class)))
     @APIResponse(responseCode = "400", description = "BAD REQUEST")
     @APIResponse(responseCode = "403", description = "FORBIDDEN\n - " + ErroresGeneral.GEN_0002)
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response crearCliente(UsuarioDtoRequest usuarioDtoRequest) {
+    public Response crearUsuario(UsuarioDtoRequest usuarioDtoRequest) {
         return Response.status(Response.Status.CREATED).entity(usuarioService.crear(usuarioDtoRequest)).build();
     }
 
     @DELETE
-    @Path("/{idCliente}")
-    @Operation(summary = "Elimina un cliente")
+    @Path("/{idUsuario}")
+    @Operation(summary = "Elimina un usuario")
     @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = UsuarioDtoResponse.class)))
-    public Response eliminarCliente(@PathParam("idCliente") Integer idCliente) {
-        return Response.status(Response.Status.OK).entity(usuarioService.eliminar(idCliente)).build();
+    public Response eliminarUsuario(@PathParam("idUsuario") Integer idUsuario) {
+        return Response.status(Response.Status.OK).entity(usuarioService.eliminar(idUsuario)).build();
     }
 
     @PUT
-    @Path("/{idCliente}")
-    @Operation(summary = "Edita un cliente")
+    @Path("/{idUsuario}")
+    @Operation(summary = "Edita un usuario")
     @APIResponse(responseCode = "201", description = "CREATED", content = @Content(schema = @Schema(implementation = UsuarioDtoResponse.class)))
     @APIResponse(responseCode = "400", description = "BAD REQUEST")
     @APIResponse(responseCode = "404", description = "NOT FOUND")
-    public Response editarCliente(@PathParam("idCliente") Integer idCliente, UsuarioDtoRequest usuarioDtoRequest) {
-        return Response.status(Response.Status.CREATED).entity(usuarioService.editar(idCliente, usuarioDtoRequest)).build();
+    public Response editarUsuario(@PathParam("idUsuario") Integer idUsuario, UsuarioDtoRequest usuarioDtoRequest) {
+        return Response.status(Response.Status.CREATED).entity(usuarioService.editar(idUsuario, usuarioDtoRequest)).build();
     }
 }

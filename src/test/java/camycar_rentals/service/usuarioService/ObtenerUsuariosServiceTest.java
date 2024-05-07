@@ -23,7 +23,7 @@ public class ObtenerUsuariosServiceTest {
     UsuarioRepository usuarioRepository;
 
     @Test
-    @DisplayName("Obtiene todos los clientes")
+    @DisplayName("Obtiene todos los usuarios")
     void obtenerUsuariosOk() {
         // Given
         Usuario usuario1 = new Usuario(1, "Roberto", "1234", "78496746T", "apellido1", "apellido2", "prueba@example.com");
@@ -34,7 +34,7 @@ public class ObtenerUsuariosServiceTest {
         Mockito.when(usuarioRepository.findAll(List.of())).thenReturn(List.of(usuario1, usuario2));
 
         // When
-        List<UsuarioDtoResponse> usuarioDtoResponseDevuelto = usuarioService.obtenerClientes();
+        List<UsuarioDtoResponse> usuarioDtoResponseDevuelto = usuarioService.obtenerUsuarios();
 
         // Then
         assertEquals(usuarioDtoResponseList, usuarioDtoResponseDevuelto);
