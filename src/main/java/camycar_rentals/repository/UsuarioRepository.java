@@ -33,4 +33,16 @@ public class UsuarioRepository extends AbstractRepository<Usuario, Integer> {
         }
         return true;
     }
+
+    public Boolean existeUsuarioCorreoYContrasena(String correo, String contrasena) {
+        Query query = em.createNamedQuery("Usuario.existeUsuarioCorreoYContrasena");
+        query.setParameter("correo", correo);
+        query.setParameter("contrasena", contrasena);
+        try {
+            query.getSingleResult();
+        } catch (NoResultException e) {
+            return false;
+        }
+        return true;
+    }
 }

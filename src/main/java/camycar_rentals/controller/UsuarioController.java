@@ -19,6 +19,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -65,5 +66,12 @@ public class UsuarioController extends BaseController {
     @APIResponse(responseCode = "404", description = "NOT FOUND")
     public Response editarUsuario(@PathParam("idUsuario") Integer idUsuario, UsuarioDtoRequest usuarioDtoRequest) {
         return Response.status(Response.Status.CREATED).entity(usuarioService.editar(idUsuario, usuarioDtoRequest)).build();
+    }
+
+    @GET
+    @Path("/comprobar")
+    @Operation(summary = "Comprueba las credenciales de un usuario")
+    public Response comprobarUsuario(@QueryParam("correo") String correo, @QueryParam("contrasena") String contrasena) {
+        return Response.status(Response.Status.OK).entity(usuarioService.comprobarUsuario(correo, contrasena)).build();
     }
 }

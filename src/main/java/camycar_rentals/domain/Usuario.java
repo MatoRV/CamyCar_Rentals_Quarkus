@@ -20,6 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQuery(name = "Usuario.obtenerPorDni", query = "SELECT c FROM Usuario c WHERE c.dniUsuario = :dniUsuario")
+@NamedQuery(name = "Usuario.existeUsuarioCorreoYContrasena", query = "SELECT u FROM Usuario u WHERE u.correo = :correo AND u.contrasena = :contrasena")
 public class Usuario {
 
     @Id
