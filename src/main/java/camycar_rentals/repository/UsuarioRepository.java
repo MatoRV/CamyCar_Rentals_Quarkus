@@ -1,12 +1,15 @@
 package camycar_rentals.repository;
 
+import base.constant.errores.ErroresGeneral;
 import base.repository.AbstractRepository;
+import base.util.Casts;
 import camycar_rentals.domain.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import io.quarkus.security.ForbiddenException;
 
 @ApplicationScoped
 public class UsuarioRepository extends AbstractRepository<Usuario, Integer> {
@@ -34,15 +37,14 @@ public class UsuarioRepository extends AbstractRepository<Usuario, Integer> {
         return true;
     }
 
-    public Boolean existeUsuarioCorreoYContrasena(String correo, String contrasena) {
+    public Usuario existeUsuarioCorreoYContrasena(String correo, String contrasena) {
         Query query = em.createNamedQuery("Usuario.existeUsuarioCorreoYContrasena");
         query.setParameter("correo", correo);
         query.setParameter("contrasena", contrasena);
         try {
-            query.getSingleResult();
-        } catch (NoResultException e) {
-            return false;
+            return Casts.castObject(query.getSingleResult(), Usuario.class);
+        } catch (NoResultException n) {
+            throw new ForbiddenException(ErroresGeneral.GEN_0003);
         }
-        return true;
     }
 }

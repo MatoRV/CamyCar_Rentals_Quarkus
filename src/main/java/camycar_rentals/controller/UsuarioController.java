@@ -71,6 +71,10 @@ public class UsuarioController extends BaseController {
     @GET
     @Path("/comprobar")
     @Operation(summary = "Comprueba las credenciales de un usuario")
+    @APIResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = UsuarioDtoResponse.class)))
+    @APIResponse(responseCode = "400", description = "BAD REQUEST")
+    @APIResponse(responseCode = "403", description = "FORBIDDEN " + ErroresGeneral.GEN_0003)
+    @APIResponse(responseCode = "404", description = "NOT FOUND")
     public Response comprobarUsuario(@QueryParam("correo") String correo, @QueryParam("contrasena") String contrasena) {
         return Response.status(Response.Status.OK).entity(usuarioService.comprobarUsuario(correo, contrasena)).build();
     }

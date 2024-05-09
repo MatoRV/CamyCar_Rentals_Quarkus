@@ -4,7 +4,6 @@ import java.util.List;
 import base.constant.errores.ErroresGeneral;
 import base.dto.usuario.UsuarioDtoRequest;
 import base.dto.usuario.UsuarioDtoResponse;
-import base.dto.usuario.UsuarioExisteDtoResponse;
 import base.service.BaseService;
 import camycar_rentals.domain.Usuario;
 import camycar_rentals.dto.converters.ConverterDtoToJpa;
@@ -58,9 +57,8 @@ public class UsuarioService extends BaseService<UsuarioRepository, Usuario, Inte
         return converterJpaToDto.convertUsuario(remove(usuario));
     }
 
-    public UsuarioExisteDtoResponse comprobarUsuario(String correo, String contrasena) {
-        UsuarioExisteDtoResponse u = new UsuarioExisteDtoResponse();
-        u.setExiste(repository.existeUsuarioCorreoYContrasena(correo, contrasena));
-        return u;
+    public UsuarioDtoResponse comprobarUsuario(String correo, String contrasena) {
+        Usuario u = repository.existeUsuarioCorreoYContrasena(correo, contrasena);
+        return converterJpaToDto.convertUsuario(u);
     }
 }

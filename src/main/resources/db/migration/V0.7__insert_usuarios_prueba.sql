@@ -1,0 +1,1 @@
+INSERT INTO usuario (id_usuario,nombre,contrasena,dni_usuario,apellido1,apellido2,correo) VALUES (1,"admin","1234","00000000A","apellido1","apellido2","admin@gmail.com");
