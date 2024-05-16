@@ -27,7 +27,7 @@ public class CrearUsuarioServiceTest {
     void crearClienteOk() {
         // Given
         Usuario usuarioDado = new Usuario(null, "Prueba 1", "1234", "11111111C", "apellido1", "apellido2", "prueba@example.com");
-        Usuario usuarioEsperado = new Usuario(1, "Prueba 1", "apellido1", "apellido2", "prueba@example.com", "1234", "11111111C");
+        Usuario usuarioEsperado = new Usuario(1, "Prueba 1", "apellido1", "11111111C", "apellido1", "apellido2", "prueba@example.com");
         UsuarioDtoRequest usuarioDtoRequest = new UsuarioDtoRequest("Prueba 1", "apellido1", "apellido2", "prueba@example.com", "1234", "11111111C");
         UsuarioDtoResponse usuarioDtoResponse = new UsuarioDtoResponse(1, "Prueba 1", "apellido1", "apellido2", "prueba@example.com", "11111111C");
         Mockito.when(usuarioRepository.create(usuarioDado)).thenReturn(usuarioEsperado);
