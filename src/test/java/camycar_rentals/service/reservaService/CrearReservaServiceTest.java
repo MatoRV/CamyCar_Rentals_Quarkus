@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import base.dto.diareservado.DiasReservadosDtoResponse;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.reserva.ReservaDtoResponse;
@@ -62,7 +63,10 @@ public class CrearReservaServiceTest {
         Usuario usuario = new Usuario(1, "Cliente 1", "", "11111111C", "apellido1", "apellido2", "prueba@example.com");
         Reserva reservaEsperada = new Reserva(1, 1, maquina, 1, usuario, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
         MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.ALQUILADO, "Torito", 4500);
-        ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, maquinaDtoResponse, "Cliente 1", "direccion 1", "2024-04-22", "2024-04-24");
+        DiasReservadosDtoResponse diasReservadosDtoResponse =
+                new DiasReservadosDtoResponse(List.of(LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-23"), LocalDate.parse("2024-04-24")));
+        ReservaDtoResponse reservaDtoResponse =
+                new ReservaDtoResponse(1, maquinaDtoResponse, "Cliente 1", "direccion 1", "2024-04-22", "2024-04-24", diasReservadosDtoResponse);
         when(maquinaService.find(1)).thenReturn(maquina);
         when(localidadRepository.obtenerLocalidadPorNombre(any())).thenReturn(List.of(localidad));
         when(usuarioService.find(1)).thenReturn(usuario);

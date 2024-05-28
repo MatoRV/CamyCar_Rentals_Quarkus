@@ -2,6 +2,8 @@ package camycar_rentals.service.reservaService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
+import java.util.List;
+import base.dto.diareservado.DiasReservadosDtoResponse;
 import base.dto.reserva.ReservaDtoResponse;
 import camycar_rentals.domain.Reserva;
 import camycar_rentals.repository.ReservaRepository;
@@ -27,7 +29,9 @@ public class ObtenerReservaPorIdServiceTest {
     void ObtenerReservaPorId() {
         // Given
         Reserva reserva = new Reserva(1, 1, null, 1, null, "direccion 1", LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-24"));
-        ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, null, null, "direccion 1", "2024-04-22", "2024-04-24");
+        List<LocalDate> dias = List.of(LocalDate.parse("2024-04-22"), LocalDate.parse("2024-04-23"), LocalDate.parse("2024-04-24"));
+        DiasReservadosDtoResponse diasReservadosDtoResponse = new DiasReservadosDtoResponse(dias);
+        ReservaDtoResponse reservaDtoResponse = new ReservaDtoResponse(1, null, null, "direccion 1", "2024-04-22", "2024-04-24", diasReservadosDtoResponse);
         Mockito.when(reservaRepository.find(1)).thenReturn(reserva);
 
         // When

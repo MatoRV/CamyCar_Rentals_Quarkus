@@ -12,7 +12,7 @@ public class ReservaDtoRequest {
 
     private Integer idMaquina;
 
-    private Integer idCliente;
+    private Integer idUsuario;
 
     private String direccion;
 

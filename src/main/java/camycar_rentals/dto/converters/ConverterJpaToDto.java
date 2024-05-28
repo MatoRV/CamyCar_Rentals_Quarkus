@@ -1,5 +1,6 @@
 package camycar_rentals.dto.converters;
 
+import java.time.LocalDate;
 import java.util.List;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.reserva.ReservaDtoResponse;
@@ -31,7 +32,8 @@ public interface ConverterJpaToDto {
     List<MaquinaDtoResponse> convertMaquinaDtoResponseList(List<Maquina> maquinas);
 
     @Mapping(source = "reserva.usuario.nombre", target = "nombreUsuario")
-    ReservaDtoResponse convertReservaDtoResponse(Reserva reserva);
+    @Mapping(source = "dias", target = "diasReservados.dias")
+    ReservaDtoResponse convertReservaDtoResponse(Reserva reserva, List<LocalDate> dias);
 
     List<ReservaDtoResponse> convertReservaDtoResponseList(List<Reserva> reservas);
 
