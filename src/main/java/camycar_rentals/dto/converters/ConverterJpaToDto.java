@@ -26,13 +26,14 @@ public interface ConverterJpaToDto {
 
     List<TipoMaquinaDtoResponse> convertTipoMaquinaDtoResponseList(List<TipoMaquina> tipoMaquinas);
 
-    @Mapping(source = "maquina.tipoMaquina.nombre", target = "tipoMaquina")
-    MaquinaDtoResponse convertMaquinaDtoResponse(Maquina maquina);
+    @Mapping(source = "maquina.tipoMaquina.nombre", target = "tipoMaquina.nombre")
+    @Mapping(source = "dias", target = "diasReservados.dias")
+    MaquinaDtoResponse convertMaquinaDtoResponse(Maquina maquina, List<LocalDate> dias);
 
     List<MaquinaDtoResponse> convertMaquinaDtoResponseList(List<Maquina> maquinas);
 
     @Mapping(source = "reserva.usuario.nombre", target = "nombreUsuario")
-    @Mapping(source = "dias", target = "diasReservados.dias")
+    @Mapping(source = "dias", target = "maquina.diasReservados.dias")
     ReservaDtoResponse convertReservaDtoResponse(Reserva reserva, List<LocalDate> dias);
 
     List<ReservaDtoResponse> convertReservaDtoResponseList(List<Reserva> reservas);

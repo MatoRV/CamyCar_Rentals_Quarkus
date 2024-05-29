@@ -1,5 +1,7 @@
 package base.dto.maquina;
 
+import base.dto.diareservado.DiasReservadosDtoResponse;
+import base.dto.tipomaquina.TipoMaquinaNombreDtoResponse;
 import camycar_rentals.domain.enumerados.EstadoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +22,9 @@ public class MaquinaDtoResponse {
 
     private EstadoEnum estado;
 
-    private String tipoMaquina;
+    private TipoMaquinaNombreDtoResponse tipoMaquina;
 
     private Integer peso;
+
+    private DiasReservadosDtoResponse diasReservados;
 }

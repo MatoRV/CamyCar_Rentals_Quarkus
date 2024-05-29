@@ -1,6 +1,5 @@
 package base.dto.reserva;
 
-import base.dto.diareservado.DiasReservadosDtoResponse;
 import base.dto.maquina.MaquinaDtoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +17,4 @@ public class ReservaDtoResponse {
     private String nombreUsuario;
 
     private String direccion;
-
-    private DiasReservadosDtoResponse diasReservados;
 }
