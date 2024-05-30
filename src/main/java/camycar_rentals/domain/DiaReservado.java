@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedQuery(name = "DiaReservado.obtenerDiasReservadosPorIdMaquina", query = "SELECT dr FROM DiaReservado dr WHERE dr.maquina.idMaquina = :maquina")
 public class DiaReservado {
 
     @Id

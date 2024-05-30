@@ -80,7 +80,7 @@ public class CrearReservaServiceTest {
         when(maquinaService.find(1)).thenReturn(maquina);
         when(localidadRepository.obtenerLocalidadPorNombre(any())).thenReturn(List.of(localidad));
         when(usuarioService.find(1)).thenReturn(usuario);
-        when(maquinaRepository.edit(maquina)).thenReturn(maquinaEdit);
+        when(maquinaRepository.edit(any())).thenReturn(maquinaEdit);
         when(reservaRepository.create(any())).thenReturn(reservaEsperada);
         when(diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(1)).thenReturn(diaReservados);
 

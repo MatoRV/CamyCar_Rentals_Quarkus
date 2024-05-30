@@ -1,6 +1,7 @@
 package camycar_rentals.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import base.dto.maquina.MaquinaDtoRequest;
 import base.dto.maquina.MaquinaDtoResponse;
@@ -32,6 +33,9 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
     @Inject
     DiaReservadoRepository diaReservadoRepository;
 
+    @Inject
+    DiaReservadoService diaReservadoService;
+
     @Transactional
     public MaquinaDtoResponse crearMaquina(MaquinaDtoRequest maquinaDtoRequest) {
 
@@ -51,7 +55,7 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
     public MaquinaDtoResponse obtenerMaquinaPorId(Integer idMaquina) {
         Maquina maquina = find(idMaquina);
 
-        List<LocalDate> dias = diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(idMaquina).stream().map(DiaReservado::getDia).toList();
+        List<LocalDate> dias = diaReservadoService.obtenerDiasPorIdMaquina(idMaquina);
 
         return converterJpaToDto.convertMaquinaDtoResponse(maquina, dias);
     }
@@ -74,11 +78,7 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
 
         List<DiaReservado> diasReservados = diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(idMaquina);
 
-        List<LocalDate> dias = diasReservados.stream().map(DiaReservado::getDia).toList();
-
-        for (int i = 0; i < diasReservados.size(); i++) {
-            diaReservadoRepository.remove(diasReservados.get(i));
-        }
+        List<LocalDate> dias = diaReservadoService.eliminarDiasReservados(diasReservados);
 
         return converterJpaToDto.convertMaquinaDtoResponse(remove(maquina), dias);
     }
@@ -88,7 +88,14 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         if (tipoMaquina != null) {
             tipoMaquinaService.find(tipoMaquina);
         }
-        return converterJpaToDto.convertMaquinaDtoResponseList(
-                repository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(tipoMaquina, capacidadCarga, fabricante, estadoEnum));
+
+        List<Maquina> maquinas = repository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(tipoMaquina, capacidadCarga, fabricante, estadoEnum);
+        List<MaquinaDtoResponse> responseList = new ArrayList<>();
+        for (Maquina m : maquinas) {
+            List<LocalDate> dias = diaReservadoService.obtenerDiasPorIdMaquina(m.getIdMaquina());
+            responseList.add(converterJpaToDto.convertMaquinaDtoResponse(m, dias));
+        }
+
+        return responseList;
     }
 }

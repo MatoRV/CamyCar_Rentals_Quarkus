@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import base.constant.errores.ErroresGeneral;
 import base.dto.reserva.ReservaDtoRequest;
 import base.dto.reserva.ReservaDtoResponse;
 import base.service.BaseService;
@@ -21,6 +22,7 @@ import camycar_rentals.repository.ReservaRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import io.quarkus.security.ForbiddenException;
 
 @RequestScoped
 public class ReservaService extends BaseService<ReservaRepository, Reserva, Integer> {
@@ -49,13 +51,15 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     @Transactional
     public ReservaDtoResponse crearReserva(ReservaDtoRequest reservaDtoRequest) throws IOException {
         Maquina maquina = maquinaService.find(reservaDtoRequest.getIdMaquina());
+        if (maquina.getEstado().equals(EstadoEnum.ALQUILADO)) {
+            throw new ForbiddenException(ErroresGeneral.GEN_0004);
+        }
         Usuario usuario = usuarioService.find(reservaDtoRequest.getIdUsuario());
         maquina.setEstado(EstadoEnum.ALQUILADO);
         maquinaRepository.edit(maquina);
         Reserva reserva = converterDtoToJpa.convertReserva(reservaDtoRequest);
         reserva.setMaquina(maquina);
         reserva.setUsuario(usuario);
-
 
         long dif = ChronoUnit.DAYS.between(reserva.getFechaInicio(), reserva.getFechaFin());
         List<LocalDate> dias = new ArrayList<>();
@@ -85,7 +89,12 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     @Transactional
     public ReservaDtoResponse eliminarReserva(Integer idReserva) {
         Reserva reserva = find(idReserva);
-        return converterJpaToDto.convertReservaDtoResponse(remove(reserva), List.of());
+
+        List<DiaReservado> diasReservados = diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(reserva.getIdMaquina());
+        List<LocalDate> dias = diasReservados.stream().map(DiaReservado::getDia).toList();
+        diasReservados.forEach(d -> diaReservadoRepository.remove(d));
+
+        return converterJpaToDto.convertReservaDtoResponse(remove(reserva), dias);
     }
 
     //    @Transactional

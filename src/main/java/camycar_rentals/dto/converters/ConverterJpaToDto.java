@@ -34,6 +34,13 @@ public interface ConverterJpaToDto {
 
     @Mapping(source = "reserva.usuario.nombre", target = "nombreUsuario")
     @Mapping(source = "dias", target = "maquina.diasReservados.dias")
+    @Mapping(source = "reserva.maquina.idMaquina", target = "maquina.idMaquina")
+    @Mapping(source = "reserva.maquina.fabricante", target = "maquina.fabricante")
+    @Mapping(source = "reserva.maquina.modelo", target = "maquina.modelo")
+    @Mapping(source = "reserva.maquina.capacidadCarga", target = "maquina.capacidadCarga")
+    @Mapping(source = "reserva.maquina.estado", target = "maquina.estado")
+    @Mapping(source = "reserva.maquina.tipoMaquina.nombre", target = "maquina.tipoMaquina.nombre")
+    @Mapping(source = "reserva.maquina.peso", target = "maquina.peso")
     ReservaDtoResponse convertReservaDtoResponse(Reserva reserva, List<LocalDate> dias);
 
     List<ReservaDtoResponse> convertReservaDtoResponseList(List<Reserva> reservas);

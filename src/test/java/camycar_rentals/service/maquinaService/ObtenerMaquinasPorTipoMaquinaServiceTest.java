@@ -3,7 +3,6 @@ package camycar_rentals.service.maquinaService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import java.util.List;
-import base.dto.diareservado.DiasReservadosDtoResponse;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.tipomaquina.TipoMaquinaNombreDtoResponse;
 import camycar_rentals.domain.Maquina;
@@ -41,12 +40,10 @@ public class ObtenerMaquinasPorTipoMaquinaServiceTest {
         TipoMaquina tipoMaquina = new TipoMaquina(1, "Torito");
         TipoMaquinaNombreDtoResponse tipoMaquinaNombreDtoResponse = new TipoMaquinaNombreDtoResponse("Torito");
         Maquina maquina = new Maquina(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquina, 4500);
-        DiasReservadosDtoResponse diasReservadosDtoResponse = new DiasReservadosDtoResponse(List.of());
-        MaquinaDtoResponse maquinaDtoResponse =
-                new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquinaNombreDtoResponse, 4500, diasReservadosDtoResponse);
+        MaquinaDtoResponse maquinaDtoResponse = new MaquinaDtoResponse(1, "F1", "M1", 1500, EstadoEnum.DISPONIBLE, tipoMaquinaNombreDtoResponse, 4500, null);
         when(maquinaRepository.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(1, null, null, null)).thenReturn(List.of(maquina));
         when(tipoMaquinaService.find(1)).thenReturn(tipoMaquina);
-        when(diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(1)).thenReturn(List.of());
+        when(diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(1)).thenReturn(null);
 
         // When
         List<MaquinaDtoResponse> maquinaDtoResponseDevuelto = maquinaService.obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(1, null, null, null);
