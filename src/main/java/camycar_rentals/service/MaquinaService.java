@@ -56,6 +56,7 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         Maquina maquina = find(idMaquina);
 
         List<LocalDate> dias = diaReservadoService.obtenerDiasPorIdMaquina(idMaquina);
+        maquina.setEstado(obtenerEstadoPorDias(dias));
 
         return converterJpaToDto.convertMaquinaDtoResponse(maquina, dias);
     }
@@ -68,6 +69,9 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         maquinaEdit.setTipoMaquina(tipoMaquina);
 
         List<LocalDate> dias = diaReservadoRepository.obtenerDiasReservadosPorIdMaquina(idMaquina).stream().map(DiaReservado::getDia).toList();
+        if (maquinaEdit.getEstado().equals(EstadoEnum.MANTENIMIENTO) || maquinaEdit.getEstado().equals(EstadoEnum.NO_DISPONIBLE)) {
+            maquinaEdit.setEstado(obtenerEstadoPorDias(dias));
+        }
 
         return converterJpaToDto.convertMaquinaDtoResponse(edit(maquinaEdit), dias);
     }
@@ -93,9 +97,20 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         List<MaquinaDtoResponse> responseList = new ArrayList<>();
         for (Maquina m : maquinas) {
             List<LocalDate> dias = diaReservadoService.obtenerDiasPorIdMaquina(m.getIdMaquina());
+            m.setEstado(obtenerEstadoPorDias(dias));
             responseList.add(converterJpaToDto.convertMaquinaDtoResponse(m, dias));
         }
 
         return responseList;
+    }
+
+    public EstadoEnum obtenerEstadoPorDias(List<LocalDate> dias) {
+        EstadoEnum estado = EstadoEnum.DISPONIBLE;
+        for (LocalDate d : dias) {
+            if (d.equals(LocalDate.now())) {
+                estado = EstadoEnum.ALQUILADO;
+            }
+        }
+        return estado;
     }
 }

@@ -51,14 +51,8 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
     @Transactional
     public ReservaDtoResponse crearReserva(ReservaDtoRequest reservaDtoRequest) throws IOException {
         Maquina maquina = maquinaService.find(reservaDtoRequest.getIdMaquina());
-        if (maquina.getEstado().equals(EstadoEnum.ALQUILADO)) {
-            throw new ForbiddenException(ErroresGeneral.GEN_0004);
-        }
         Usuario usuario = usuarioService.find(reservaDtoRequest.getIdUsuario());
-        maquina.setEstado(EstadoEnum.ALQUILADO);
-        maquinaRepository.edit(maquina);
         Reserva reserva = converterDtoToJpa.convertReserva(reservaDtoRequest);
-        reserva.setMaquina(maquina);
         reserva.setUsuario(usuario);
 
         long dif = ChronoUnit.DAYS.between(reserva.getFechaInicio(), reserva.getFechaFin());
@@ -68,7 +62,11 @@ public class ReservaService extends BaseService<ReservaRepository, Reserva, Inte
             diaReservadoRepository.create(new DiaReservado(null, maquina, reserva.getFechaInicio().plusDays(i)));
             dias.add(reserva.getFechaInicio().plusDays(i));
         }
-        
+        maquina.setEstado(maquinaService.obtenerEstadoPorDias(dias));
+        if (maquina.getEstado().equals(EstadoEnum.ALQUILADO)) {
+            throw new ForbiddenException(ErroresGeneral.GEN_0004);
+        }
+        reserva.setMaquina(maquina);
         reserva = create(reserva);
         pdfGeneratorService.generarPdf(reserva);
         return converterJpaToDto.convertReservaDtoResponse(reserva, dias);
