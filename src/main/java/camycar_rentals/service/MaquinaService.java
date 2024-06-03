@@ -87,8 +87,8 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         return converterJpaToDto.convertMaquinaDtoResponse(remove(maquina), dias);
     }
 
-    public List<MaquinaDtoResponse> obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(Integer tipoMaquina, Integer capacidadCarga,
-            String fabricante, EstadoEnum estadoEnum) {
+    @Transactional
+    public List<MaquinaDtoResponse> obtenerMaquinaPorTipoMaquinaYCapacidadCargaYFabricanteYEstado(Integer tipoMaquina, Integer capacidadCarga, String fabricante, EstadoEnum estadoEnum) {
         if (tipoMaquina != null) {
             tipoMaquinaService.find(tipoMaquina);
         }
@@ -98,6 +98,7 @@ public class MaquinaService extends BaseService<MaquinaRepository, Maquina, Inte
         for (Maquina m : maquinas) {
             List<LocalDate> dias = diaReservadoService.obtenerDiasPorIdMaquina(m.getIdMaquina());
             m.setEstado(obtenerEstadoPorDias(dias));
+            edit(m);
             responseList.add(converterJpaToDto.convertMaquinaDtoResponse(m, dias));
         }
 
