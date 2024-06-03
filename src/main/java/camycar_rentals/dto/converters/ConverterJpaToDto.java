@@ -2,6 +2,7 @@ package camycar_rentals.dto.converters;
 
 import java.time.LocalDate;
 import java.util.List;
+import base.dto.localidad.LocalidadDtoResponse;
 import base.dto.maquina.MaquinaDtoResponse;
 import base.dto.reserva.ReservaDtoResponse;
 import base.dto.tarifatransporte.TarifaTransporteDtoResponse;
@@ -49,4 +50,9 @@ public interface ConverterJpaToDto {
     TarifaTransporteDtoResponse convertTarifaTransporteDtoResponse(TarifaTransporte tarifaTransporte);
 
     List<TarifaTransporteDtoResponse> convertTarifaTransporteDtoResponseList(List<TarifaTransporte> tarifaTransporteList);
+
+    LocalidadDtoResponse converLocalidadDtoResponse(String localidad);
+
+    @Mapping(source = "localidades", target = "localidades.localidad")
+    List<LocalidadDtoResponse> convertLocalidadDtoResponseList(List<String> localidades);
 }

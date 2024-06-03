@@ -2,6 +2,7 @@ package camycar_rentals.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import base.dto.localidad.LocalidadDtoResponse;
 import base.service.BaseService;
 import camycar_rentals.domain.Localidad;
 import camycar_rentals.dto.converters.ConverterJpaToDto;
@@ -15,13 +16,13 @@ public class LocalidadService extends BaseService<LocalidadRepository, Localidad
     @Inject
     ConverterJpaToDto converterJpaToDto;
 
-    public List<String> obtenerLocalidades() {
+    public List<LocalidadDtoResponse> obtenerLocalidades() {
         List<Localidad> localidades = findAll();
         List<String> localidadesList = new ArrayList<>();
         for (Localidad localidad : localidades) {
             localidadesList.add(localidad.getNombre());
         }
-        return localidadesList;
+        return converterJpaToDto.convertLocalidadDtoResponseList(localidadesList);
     }
 
 }
